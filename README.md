@@ -21,31 +21,17 @@ Itda의 홈페이지를 소개합니다
 **실행방법**
 
 1. MySQL 설치 및 실행
-    <details>
-        <summary>
-          MySQL 설치
-        </summary>
-         [MySQL](https://dev.mysql.com/downloads/windows/installer/) 다운로드
-        ![image](https://github.com/JayJi5204/ItdaAgainProject/assets/126458483/c47e1b6e-45dd-49ae-b69f-455887b3982a)
-    </details>
-    <details>
-        <summary>
-          MySQL 설정
-        </summary>
-          <details>
-                <summary>
-                  테스트1
-                </summary>
-                  테스트2
-            </details>
-    </details>
-
-2. IntelliJ 설치
+    [MySQL 다운로드](https://dev.mysql.com/downloads/windows/installer/) 
+2. MySQL 설정
+    [MySQL 설정](https://www.google.com/search?q=mysql+%EC%84%A4%EC%A0%95&sca_esv=591536266&sxsrf=AM9HkKnvea0YJil8IRjZqXrZlyUQwkFg8g%3A1702753530918&ei=-vR9ZfLON-fp1e8P2o2RoAk&ved=0ahUKEwjys-aa05SDAxXndPUHHdpGBJQQ4dUDCBA&uact=5&oq=mysql+%EC%84%A4%EC%A0%95&gs_lp=Egxnd3Mtd2l6LXNlcnAiDG15c3FsIOyEpOyglTIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIEEAAYHjIEEAAYHjIEEAAYHjIGEAAYHhgPSLMSUPEFWL0RcAF4AZABAJgBd6AB5AiqAQQwLjEwuAEDyAEA-AEBwgIKEAAYRxjWBBiwA8ICBhAAGAUYHsICChAjGIAEGIoFGCfCAgoQABiABBgUGIcCwgIKEAAYgAQYigUYQ8ICCBAAGIAEGLED4gMEGAAgQYgGAZAGCg&sclient=gws-wiz-serp)
+    
+3. IntelliJ 설치
+    [IntelliJ 다운로드](https://www.jetbrains.com/ko-kr/idea/download/?section=windows) 
   
-3. 프로젝트 Import
+4. 프로젝트 Import
     [File] -> [Open] -> '/introduce/SpringJPA/board' 폴더 선택 -> 'build.gradle' 선택 -> 'Open as Project' 선택
 
-4. 실행 
+5. 실행 
     src/main/java/introduce.board/BoardApplication 실행
 
    ## 주요 기능

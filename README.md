@@ -18,9 +18,9 @@ Itda의 홈페이지를 소개합니다
     $ cd ItdaAgainProject
 
    
-**실행방법**  
+**실행방법**
 
-1.<details>
+1. <details>
     <summary>
       MySQL 설치 및 실행
     </summary>
@@ -34,18 +34,17 @@ Itda의 홈페이지를 소개합니다
    -> 'grant connect, resource, dba to jayji;' 입력   
   </details>
 
-2.<details>
+2. <details>
     <summary>
      IntelliJ 설치 및 실행
     </summary>
        토글 안 내용
   </details>
   
-3.프로젝트 Import
+3. 프로젝트 Import
 [File] -> [Open] -> '/introduce/SpringJPA/board' 폴더 선택 -> 'build.gradle' 선택 -> 'Open as Project' 선택
 
-4.실행 src/main/java/introduce.board/BoardApplication 실행
-  
+4. 실행 src/main/java/introduce.board/BoardApplication 실행
 
    ## 주요 기능
 

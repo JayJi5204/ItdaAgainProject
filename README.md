@@ -32,7 +32,10 @@ Itda의 홈페이지를 소개합니다
 4. 프로젝트 Import
     [File] -> [Open] -> '/introduce/SpringJPA/board' 폴더 선택 -> 'build.gradle' 선택 -> 'Open as Project' 선택
 
-5. 실행 
+5. 실행
+
+6. 테스트입니다
+테스트
     src/main/java/introduce.board/BoardApplication 실행
 
    ## 주요 기능

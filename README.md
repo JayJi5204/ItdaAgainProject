@@ -18,22 +18,19 @@ Itda의 홈페이지를 소개합니다
     $ cd ItdaAgainProject
 
 **실행방법**
-1. Oracle Db 계정 생성   
-   cmd 실행 -> 'sqlplus' 입력 ->   
-   Enter username: system   
-   Enter password: 1234   
-   -> 'conn/as sysdba' 입력   
-   -> 'create user tester2 identified by 1234;' 입력   
-   -> 'grant connect, resource, dba to tester2;' 입력   
-2. 이클립스 실행   
-3. 프로젝트 Import   
-   [File] -> [import] -> [Existring Gradle Project] -> 'green_final_team_project/itdalearn-be' 폴더 선택   
-4. Querydsl를 위한 QClass생성   
-   [Window] -> [Show view] -> [Other] -> [Gradle Task] -> [itdalearn-be] -> [build] -> [build] -> itdalearn-be폴더 refresh   
-5. 로컬 파일 저장 폴더 생성   
-   'C:\shop\course'   
-6. 실행
-   [Run] -> [Run as] -> [Spring Boot App] 
+1. MySQL 설치 및 실행   
+   [MySQL 다운로드](https://dev.mysql.com/downloads/windows/installer/)   
+  
+2. MySQL 설정
+   [MySQL 설정](https://www.google.com/search?q=mysql+%EC%84%A4%EC%A0%95&sca_esv=591536266&sxsrf=AM9HkKnvea0YJil8IRjZqXrZlyUQwkFg8g%3A1702753530918&ei=-vR9ZfLON-fp1e8P2o2RoAk&ved=0ahUKEwjys-aa05SDAxXndPUHHdpGBJQQ4dUDCBA&uact=5&oq=mysql+%EC%84%A4%EC%A0%95&gs_lp=Egxnd3Mtd2l6LXNlcnAiDG15c3FsIOyEpOyglTIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIEEAAYHjIEEAAYHjIEEAAYHjIGEAAYHhgPSLMSUPEFWL0RcAF4AZABAJgBd6AB5AiqAQQwLjEwuAEDyAEA-AEBwgIKEAAYRxjWBBiwA8ICBhAAGAUYHsICChAjGIAEGIoFGCfCAgoQABiABBgUGIcCwgIKEAAYgAQYigUYQ8ICCBAAGIAEGLED4gMEGAAgQYgGAZAGCg&sclient=gws-wiz-serp)
+
+3. 이클립스 설치
+    [IntelliJ 다운로드](https://www.jetbrains.com/ko-kr/idea/download/?section=windows) 
+
+4. 프로젝트 Import   
+   [File] -> [Open] -> '/introduce/SpringJPA/board' 폴더 선택 -> 'build.gradle' 선택 -> 'Open as Project' 선택
+5. 실행
+    src/main/java/introduce.board/BoardApplication 실행
 
    ## 주요 기능
 

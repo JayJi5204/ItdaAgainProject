@@ -20,31 +20,32 @@ Itda의 홈페이지를 소개합니다
    
 **실행방법**
 
-1. <details>
-    <summary>
-      MySQL 설치 및 실행
-    </summary>
-     MySQL(https://dev.mysql.com/downloads/windows/installer/) 다운로드
-      ![image](https://github.com/JayJi5204/ItdaAgainProject/assets/126458483/7bc5eaa9-bb8e-498c-849a-59d413f9e153)
-      cmd 실행 -> 'sqlplus' 입력 ->   
-   Enter username: system   
-   Enter password: 1234   
-   -> 'conn/as sysdba' 입력   
-   -> 'create user jayji identified by 1234;' 입력   
-   -> 'grant connect, resource, dba to jayji;' 입력   
-  </details>
+1. MySQL 설치 및 실행
+    <details>
+        <summary>
+          MySQL 설치
+        </summary>
+         MySQL(https://dev.mysql.com/downloads/windows/installer/) 다운로드
+          ![image](https://github.com/JayJi5204/ItdaAgainProject/assets/126458483/7bc5eaa9-bb8e-498c-849a-59d413f9e153)  
+    </details>
+     <details>
+        <summary>
+          MySQL 설정
+        </summary>
+          <details>
+        <summary>
+          테스트
+        </summary>
+    </details>
+    </details>
 
-2. <details>
-    <summary>
-     IntelliJ 설치 및 실행
-    </summary>
-       토글 안 내용
-  </details>
+2. IntelliJ 설치
   
 3. 프로젝트 Import
-[File] -> [Open] -> '/introduce/SpringJPA/board' 폴더 선택 -> 'build.gradle' 선택 -> 'Open as Project' 선택
+    [File] -> [Open] -> '/introduce/SpringJPA/board' 폴더 선택 -> 'build.gradle' 선택 -> 'Open as Project' 선택
 
-4. 실행 src/main/java/introduce.board/BoardApplication 실행
+4. 실행 
+    src/main/java/introduce.board/BoardApplication 실행
 
    ## 주요 기능
 

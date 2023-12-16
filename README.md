@@ -26,7 +26,8 @@ Itda의 홈페이지를 소개합니다
           MySQL 설치
         </summary>
          [MySQL](https://dev.mysql.com/downloads/windows/installer/) 다운로드
-![image](https://github.com/JayJi5204/ItdaAgainProject/assets/126458483/4854a34e-2fa8-4c72-8950-f36ab90cae1a)
+        ![image](https://github.com/JayJi5204/ItdaAgainProject/assets/126458483/c47e1b6e-45dd-49ae-b69f-455887b3982a)
+
     </details>
      <details>
         <summary>

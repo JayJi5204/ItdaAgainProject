@@ -20,13 +20,10 @@ Itda의 홈페이지를 소개합니다
 **실행방법**
 1. MySQL 설치 및 실행   
    [MySQL 다운로드](https://dev.mysql.com/downloads/windows/installer/)   
-  
 2. MySQL 설정
-   [MySQL 설정](https://www.google.com/search?q=mysql+%EC%84%A4%EC%A0%95&sca_esv=591536266&sxsrf=AM9HkKnvea0YJil8IRjZqXrZlyUQwkFg8g%3A1702753530918&ei=-vR9ZfLON-fp1e8P2o2RoAk&ved=0ahUKEwjys-aa05SDAxXndPUHHdpGBJQQ4dUDCBA&uact=5&oq=mysql+%EC%84%A4%EC%A0%95&gs_lp=Egxnd3Mtd2l6LXNlcnAiDG15c3FsIOyEpOyglTIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIEEAAYHjIEEAAYHjIEEAAYHjIGEAAYHhgPSLMSUPEFWL0RcAF4AZABAJgBd6AB5AiqAQQwLjEwuAEDyAEA-AEBwgIKEAAYRxjWBBiwA8ICBhAAGAUYHsICChAjGIAEGIoFGCfCAgoQABiABBgUGIcCwgIKEAAYgAQYigUYQ8ICCBAAGIAEGLED4gMEGAAgQYgGAZAGCg&sclient=gws-wiz-serp)
-
+    [MySQL 설정](https://www.google.com/search?q=mysql+%EC%84%A4%EC%A0%95&sca_esv=591536266&sxsrf=AM9HkKnvea0YJil8IRjZqXrZlyUQwkFg8g%3A1702753530918&ei=-vR9ZfLON-fp1e8P2o2RoAk&ved=0ahUKEwjys-aa05SDAxXndPUHHdpGBJQQ4dUDCBA&uact=5&oq=mysql+%EC%84%A4%EC%A0%95&gs_lp=Egxnd3Mtd2l6LXNlcnAiDG15c3FsIOyEpOyglTIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIEEAAYHjIEEAAYHjIEEAAYHjIGEAAYHhgPSLMSUPEFWL0RcAF4AZABAJgBd6AB5AiqAQQwLjEwuAEDyAEA-AEBwgIKEAAYRxjWBBiwA8ICBhAAGAUYHsICChAjGIAEGIoFGCfCAgoQABiABBgUGIcCwgIKEAAYgAQYigUYQ8ICCBAAGIAEGLED4gMEGAAgQYgGAZAGCg&sclient=gws-wiz-serp)
 3. 이클립스 설치
     [IntelliJ 다운로드](https://www.jetbrains.com/ko-kr/idea/download/?section=windows) 
-
 4. 프로젝트 Import   
    [File] -> [Open] -> '/introduce/SpringJPA/board' 폴더 선택 -> 'build.gradle' 선택 -> 'Open as Project' 선택
 5. 실행

@@ -14,11 +14,12 @@ public class FormController {
 
     @GetMapping("/")
     public String getHomepage() {
-        return "HomePage";
+        return "page/HomePage";
     }
 
     @PostMapping("/")
     public String postHomePage() {
         return "redirect:/";
     }
+
 }

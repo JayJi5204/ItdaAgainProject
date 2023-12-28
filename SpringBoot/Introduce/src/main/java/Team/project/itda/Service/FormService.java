@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class FormService {
 
-    private final FormRepository fromRepository;
+    private final FormRepository formRepository;
 }

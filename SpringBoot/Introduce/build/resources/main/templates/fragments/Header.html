@@ -11,18 +11,20 @@
                 <!--검색 input넣을 예정-->
             </div>
             <div class="col-6">
-                <div class="p-2">
-                    <a th:text="Itda" th:href="@{/}">네비제목</a></div>
+                <div class="p-2 d-flex justify-content-center">
+                    <label>
+                        <input type="search" >
+                    </label>
+                    <button th:text="검색">검색</button>
+                </div>
             </div>
             <div class="col">
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-end">
                     <!--네비게이션 옵션-->
-                    <div class="p-2"><a th:href="@{/game}">미니게임</a></div>
-                    <div class="p-2"><a th:href="@{/ranking}">랭킹</a></div>
-                    <div class="p-2"><a th:href="@{/board}">게시판</a></div>
                     <div class="p-2"><a th:href="@{/login}">로그인</a></div>
                 </div>
             </div>
+
         </div>
     </div>
 </th:block>

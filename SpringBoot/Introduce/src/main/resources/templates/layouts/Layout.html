@@ -8,20 +8,26 @@
     <link rel="stylesheet" th:href="@{/CSS/Header.css}"/>
     <link rel="stylesheet" th:href="@{/CSS/SideBar.css}"/>
     <link rel="stylesheet" th:href="@{/CSS/Footer.css}"/>
-    <script th:src="@{/JQuery/SideBar.js}"></script>
+    <script th:src="@{/JQuery/ToggleBar.js}"></script>
     <meta charset="UTF-8">
     <title>Layout</title>
 </head>
 <body>
 <div class="indexForm">
     <div class="d-flex">
-        <div th:replace="~{fragments/SideBar :: SideBar}">SideBar</div>
-            <div class="container-fluid">
-            <div th:replace="~{fragments/Header :: Header}">Header</div>
-            <div layout:fragment="Content">Content</div>
-            <div th:replace="~{fragments/Footer :: Footer}">Footer</div>
+            <th:block th:replace="~{fragments/SideBar :: SideBar}">SideBar</th:block>
+        <div class="container-fluid">
+            <div>
+                <th:block th:replace="~{fragments/Header :: Header}">Header</th:block>
+            </div>
+            <div class="pt-2">
+                <th:block layout:fragment="Content">Content</th:block>
+            </div>
+            <div class="pt-2">
+                <th:block th:replace="~{fragments/Footer :: Footer}">Footer</th:block>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 </body>
 </html>

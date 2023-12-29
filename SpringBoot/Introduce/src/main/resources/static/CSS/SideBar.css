@@ -1,7 +1,13 @@
 html, body {
     height: 100%;
-    margin: 0;
 }
+
 .SideBarBody{
     border: 1px solid green;
+        width:15rem;
 }
+.SideBarForm{
+border-bottom: 1px solid green;
+padding:0.7rem
+}
+

@@ -4,8 +4,11 @@
     <title>Footer</title>
 </head>
 <body>
-<div class="Footer" th:fragment="Footer">
-푸터입니다
-</div>
+<th:block class="Footer" th:fragment="Footer">
+    <footer class="FooterBody">
+        <div th:text="푸터입니다">푸터</div>
+
+    </footer>
+</th:block>
 </body>
 </html>

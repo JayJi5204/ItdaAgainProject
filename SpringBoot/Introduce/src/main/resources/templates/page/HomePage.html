@@ -7,8 +7,10 @@
     <title>홈페이지</title>
 </head>
 <body>
-<div layout:fragment="Content">
-   <div th:text="홈페이지입니다">홈페이지</div>
-</div>
+<th:block layout:fragment="Content">
+    <div class="container ContentForm">
+        <div th:text="홈페이지입니다">홈페이지</div>
+    </div>
+</th:block>
 </body>
 </html>

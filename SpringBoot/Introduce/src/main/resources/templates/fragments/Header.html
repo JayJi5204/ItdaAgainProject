@@ -4,8 +4,22 @@
     <title>Header</title>
 </head>
 <body>
-<div class="Header" th:fragment="Header">
-헤더입니다
-</div>
+<th:block class="Header" th:fragment="Header">
+    <nav class="navbar HeaderBody">
+        <!--네비게이션 바-->
+        <div class="container-fluid">
+            <!--네비게이션 브랜드-->
+            <a class="d-flex justify-content-center" th:text="Itda" th:href="@{/}">네비제목</a>
+
+            <div class="d-flex me-4">
+                <!--네비게이션 옵션-->
+                <div class="p-2"><a th:href="@{/game}">미니게임</a></div>
+                <div class="p-2"><a th:href="@{/ranking}">랭킹</a></div>
+                <div class="p-2"><a th:href="@{/board}">게시판</a></div>
+                <div class="p-2"><a th:href="@{/login}">로그인</a></div>
+            </div>
+        </div>
+    </nav>
+</th:block>
 </body>
 </html>

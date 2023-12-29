@@ -4,8 +4,12 @@
     <title>SideBar</title>
 </head>
 <body>
-<div class="SideBar" th:fragment="SideBar">
-사이드바입니다
-</div>
+<th:block class="SideBar" th:fragment="SideBar">
+        <div class="SideBarBody">
+        <ul>
+            <li th:text="사이드바입니다"></li>
+        </ul>
+    </div>
+</th:block>
 </body>
 </html>

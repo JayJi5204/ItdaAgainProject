@@ -8,23 +8,20 @@
     <div class="text-center HeaderBody">
         <div class="row">
             <div class="col">
-                <!--검색 input넣을 예정-->
             </div>
             <div class="col-6">
-                <div class="p-2 d-flex justify-content-center">
+                <div class="d-flex justify-content-center">
                     <label>
-                        <input type="search" >
+                        <input type="search">
                     </label>
-                    <button th:text="검색">검색</button>
+                    <button type="submit">검색</button>
                 </div>
             </div>
             <div class="col">
                 <div class="d-flex justify-content-end">
-                    <!--네비게이션 옵션-->
-                    <div class="p-2"><a th:href="@{/login}">로그인</a></div>
+                    <div class="me-2"><a th:href="@{/login}">로그인</a></div>
                 </div>
             </div>
-
         </div>
     </div>
 </th:block>

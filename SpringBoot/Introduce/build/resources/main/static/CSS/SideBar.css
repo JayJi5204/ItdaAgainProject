@@ -1,13 +1,18 @@
-html, body {
+html,
+body {
     height: 100%;
 }
 
-.SideBarBody{
+.SideBarBody {
     border: 1px solid green;
-        width:15rem;
-}
-.SideBarForm{
-border-bottom: 1px solid green;
-padding:0.7rem
+    width: 15rem;
 }
 
+.SideBarForm {
+    border-bottom: 1px solid green;
+    padding: 0.7rem;
+}
+
+.tt{
+color:black;
+}

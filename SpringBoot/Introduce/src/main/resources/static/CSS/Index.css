@@ -1,6 +1,7 @@
 a{
-text-decoration: none;
+    text-decoration: none;
+    color:inherit;
 }
 li{
-    list-style: none;
-    }
+    list-style-type:none;
+}

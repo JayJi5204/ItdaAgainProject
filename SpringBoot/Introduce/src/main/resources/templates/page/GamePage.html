@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layouts/Layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Game</title>
+
+</head>
+<body>
+<th:block layout:fragment="Content">
+    <div class="pt-2 container ContentForm ">
+        <div th:each="gameForm:${gameForm}">
+            <div>
+                <a th:text="${gameForm.account}">숫자</a>
+            </div>
+        </div>
+        <div>
+            <label>
+                <input>
+                <button th:text="입금">입금</button>
+            </label>
+            <label>
+                <input>
+                <button th:text="출금">출금</button>
+            </label>
+            <label>
+            <button th:text="'턴 종료'">종료</button>
+            </label>
+        </div>
+        <div th:each="gameForm:${gameForm}">
+            <div><a th:text="${gameForm.nowPoint}">자산 금액</a></div>
+            <div><a th:text="${gameForm.totalPoint}">현재 금액</a></div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

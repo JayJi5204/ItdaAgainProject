@@ -2,7 +2,6 @@ package Team.project.itda.DTO;
 
 
 import Team.project.itda.Entity.GameEntity;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,19 +12,25 @@ import lombok.Setter;
 public class GameDTO {
 
     private Long id;
+    private int totalPoint;
     private int nowPoint;
     private int account;
+    private int point;
 
-    public GameDTO(Long id, int nowPoint,int account) {
+    public GameDTO(Long id, int totalPoint, int nowPoint,int account,int point) {
         this.id = id;
+        this.totalPoint=totalPoint;
         this.nowPoint = nowPoint;
         this.account=account;
+        this.point=point;
     }
     public static GameDTO toGameDTO(GameEntity gameEntity) {
         return new GameDTO(
                 gameEntity.getId(),
+                gameEntity.getTotalPoint(),
                 gameEntity.getNowPoint(),
-                gameEntity.getAccount()
+                gameEntity.getPoint(),
+                gameEntity.getPoint()
         );
     }
 

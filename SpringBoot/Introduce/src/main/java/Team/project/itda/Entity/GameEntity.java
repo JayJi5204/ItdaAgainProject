@@ -17,11 +17,17 @@ public class GameEntity {
     @Column(name = "GameEntity_Id")
     private Long id;    //게임 진행자 번호
 
+    @Column(name = "totalPoint")
+    private int totalPoint; //총 보유 포인트
+
     @Column(name = "nowPoint")
     private int nowPoint;  //현재 보유 포인트
 
+    @Column(name = "point")
+    private int account;      //그동안 투자한 게임 포인트를 가지고 있는 포인트
+
     @Column(name = "Account")
-    private int account;   //주식이 가지고 있는 포인트
+    private int point;   //게임 포인트
 
 
 }

@@ -4,10 +4,11 @@ import Team.project.itda.DTO.GameDTO;
 import Team.project.itda.Entity.GameEntity;
 import Team.project.itda.Repository.GameRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -15,11 +16,21 @@ public class GameService {
 
     private final GameRepository gameRepository;
 
-    private GameDTO gameDTO = new GameDTO();
+    private final GameDTO gameDTO = new GameDTO();
 
     private boolean gameFinish = false;
 
-    @Scheduled(fixedRate = 5000)
+    public void startGame() {
+        updateAccountValue();
+    }
+
+    public void totalValues(){
+
+        int totalValues=0;
+
+        gameDTO.setTotalPoint(totalValues);
+    }
+
     public void updateAccountValue() {
         int value = 500;
 
@@ -37,9 +48,16 @@ public class GameService {
                 gameFinish = true;
             }
         }
-        }
-        public void saveGame(GameDTO gameDTO){
-            GameEntity gameEntity=new GameEntity(gameDTO.getId(), gameDTO.getNowPoint(), gameDTO.getAccount());
-            gameRepository.save(gameEntity);
     }
+
+    public void saveGame(GameDTO gameDTO) {
+        GameEntity gameEntity = new GameEntity(gameDTO.getId(), gameDTO.getTotalPoint(), gameDTO.getNowPoint(), gameDTO.getAccount(), gameDTO.getPoint());
+        gameRepository.save(gameEntity);
+    }
+
+    public List<GameDTO> getGame() {
+        List<GameEntity> gameEntities = gameRepository.findAll();
+        return gameEntities.stream().map(GameDTO::toGameDTO).collect(Collectors.toList());
+    }
+
 }

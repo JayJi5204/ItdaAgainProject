@@ -16,7 +16,10 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
 
-    public void saveAccount(AccountDTO accountDTO) { //계좌 저장
+    public void saveAccount(AccountDTO accountDTO) {
+        Long totalMoney = accountDTO.getDepositMoney() - accountDTO.getWithdrawMoney();
+        accountDTO.setTotalMoney(totalMoney);
+
         AccountEntity accountEntity = new AccountEntity(
                 accountDTO.getId(),
                 accountDTO.getDepositMoney(),
@@ -29,6 +32,7 @@ public class AccountService {
         );
         accountRepository.save(accountEntity);
     }
+
 
     public List<AccountDTO> getAccount() {    //계좌 불러오기
         List<AccountEntity> accountEntity = accountRepository.findAll();
@@ -45,7 +49,6 @@ public class AccountService {
 
     //Api 설계를 위한 Service
     public Long saveApiAccount(AccountDTO accountDTO) {
-
         AccountEntity accountEntity = new AccountEntity(
                 accountDTO.getId(),
                 accountDTO.getDepositMoney(),

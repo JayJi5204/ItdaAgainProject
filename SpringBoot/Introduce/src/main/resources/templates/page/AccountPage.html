@@ -4,34 +4,33 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Game</title>
-
+    <title>계좌 페이지</title>
 </head>
 <body>
 <th:block layout:fragment="Content">
-    <div class="pt-2 container ContentForm ">
-        <div th:each="gameForm:${gameForm}">
-            <div>
-                <a th:text="${gameForm.account}">숫자</a>
-            </div>
+    <div class="pt-2 container ContentForm">
+        <!-- 계좌 정보를 표시하는 필드들 -->
+        <div th:each="accountForm : ${accountForm}">
+            <label>ID: <span th:text="${accountForm.id}"></span></label><br>
+            <label>입금액: <span th:text="${accountForm.depositMoney}"></span></label><br>
+            <label>입금 내용: <span th:text="${accountForm.depositDetails}"></span></label><br>
+            <label>입금 시간: <span th:text="${accountForm.depositTime}"></span></label><br>
+            <label>출금액: <span th:text="${accountForm.withdrawMoney}"></span></label><br>
+            <label>출금 내용: <span th:text="${accountForm.withdrawDetails}"></span></label><br>
+            <label>출금 시간: <span th:text="${accountForm.withdrawTime}"></span></label><br>
+            <label>총 금액: <span th:text="${accountForm.totalMoney}"></span></label><br>
         </div>
-        <div>
-            <label>
-                <input>
-                <button th:text="입금">입금</button>
-            </label>
-            <label>
-                <input>
-                <button th:text="출금">출금</button>
-            </label>
-            <label>
-            <button th:text="'턴 종료'">종료</button>
-            </label>
-        </div>
-        <div th:each="gameForm:${gameForm}">
-            <div><a th:text="${gameForm.nowPoint}">자산 금액</a></div>
-            <div><a th:text="${gameForm.totalPoint}">현재 금액</a></div>
-        </div>
+        <form th:action="@{/account}" th:object="${accountForm}" method="post" role="form">
+            <!-- 새로운 계좌를 추가하는 폼 -->
+            <label>새로운 계좌 추가:</label><br>
+            <label>입금액: <input type="text" th:field="*{depositMoney}" /></label><br>
+            <label>입금 내용: <input type="text" th:field="*{depositDetails}" /></label><br>
+            <label>출금액: <input type="text" th:field="*{withdrawMoney}" /></label><br>
+            <label>출금 내용: <input type="text" th:field="*{withdrawDetails}" /></label><br>
+            <label>총 금액: <input type="text" th:field="*{totalMoney}" /></label><br>
+
+            <button type="submit">저장</button>
+        </form>
     </div>
 </th:block>
 </body>

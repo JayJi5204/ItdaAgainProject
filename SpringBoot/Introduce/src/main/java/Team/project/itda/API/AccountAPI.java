@@ -2,7 +2,6 @@ package Team.project.itda.API;
 
 
 import Team.project.itda.DTO.AccountDTO;
-import Team.project.itda.Repository.AccountRepository;
 import Team.project.itda.Service.AccountService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -23,10 +22,25 @@ public class AccountAPI {
 
     @PostMapping("/api/account")
     public CreateAccountResponse createAccountResponse(@RequestBody @Valid CreateAccountRequest request) {
-        AccountDTO accountDTO = new AccountDTO(null, request.depositMoney, request.depositDetails, null, request.withdrawMoney, request.withdrawDetails, null, request.totalMoney);
+        // 계산된 totalMoney로 AccountDTO 생성
+        AccountDTO accountDTO = new AccountDTO(
+                null,
+                request.getDepositMoney(),
+                request.getDepositDetails(),
+                null,
+                request.getWithdrawMoney(),
+                request.getWithdrawDetails(),
+                null,
+                request.totalMoney  // 계산된 totalMoney로 설정
+        );
+
+        // 계좌를 저장하고 생성된 ID를 가져옴
         Long id = accountService.saveApiAccount(accountDTO);
+
+        // 응답에 ID 반환
         return new CreateAccountResponse(id);
     }
+
 
     @GetMapping("/api/account")
     public List<AccountDTO> getAccount() {
@@ -43,7 +57,6 @@ public class AccountAPI {
     @Data
     @AllArgsConstructor
     static class CreateAccountRequest {
-        private Long id;
         private Long depositMoney;
         private String depositDetails;
         private Long withdrawMoney;

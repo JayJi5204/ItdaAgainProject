@@ -1,6 +1,6 @@
 package Team.project.itda.Controller;
 
-import Team.project.itda.Service.GameService;
+import Team.project.itda.Service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final GameService gameService;
+    private final AccountService accountService;
 
     @GetMapping("/")
     public String getHomepage() {

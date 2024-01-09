@@ -22,4 +22,14 @@ public class FormController {
         return "redirect:/";
     }
 
+    @GetMapping("/rank")
+    public String getRankPage() {
+        return "page/RankPage";
+    }
+
+    @GetMapping("/board")
+    public String getBoardPage() {
+        return "page/BoardPage";
+    }
+
 }

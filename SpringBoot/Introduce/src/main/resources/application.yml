@@ -2,11 +2,25 @@ server:
   port: 8081
 
 spring:
+# 개인 db
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://database-1.cj83j0x9eefn.ap-northeast-2.rds.amazonaws.com:3306/jayji?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
-    username: jayji
-    password: jayji1008
+    url: ${SPRING_DATASOURCE_URL}
+    username: test1
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+#  상준 aws
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://itda-db.cp6iyseosvor.ap-northeast-2.rds.amazonaws.com:3306/itda_db?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+#    username: qwshpke
+#    password: itda4qjsWo!
+
+# 성현 aws
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://database-1.cj83j0x9eefn.ap-northeast-2.rds.amazonaws.com:3306/jayji?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+#    username: jayji
+#    password: jayji1008
 
 
   jpa:

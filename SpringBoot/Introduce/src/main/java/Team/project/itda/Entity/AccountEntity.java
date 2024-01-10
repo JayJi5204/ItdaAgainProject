@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 public class AccountEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Game_Id")
-    @SequenceGenerator(name = "Game_Id", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_Id")
     private Long id;    //계좌 순서
 

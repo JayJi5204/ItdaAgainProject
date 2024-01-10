@@ -1,6 +1,6 @@
 # ItdaAgainProject
 
-> **개발기간: 2024.01.02 ~ 2024.00.00**
+> **개발기간: 2024.01.02 ~ 2024.02.02**
 
 ## 프로젝트소개
 
@@ -40,7 +40,7 @@ Itda의 홈페이지를 소개합니다
     [File] -> [Open] -> '/ItdaAgainProject/Project/Itda' 폴더 선택 -> 'build.gradle' 선택 -> 'Open as Project' 선택
 6. 실행  
     src/main/java/Team.project.itda/ItdaApplication 실행
-   ## 주요 기능
+## 주요 기능
 
 - 상품관리
 - 통장관리

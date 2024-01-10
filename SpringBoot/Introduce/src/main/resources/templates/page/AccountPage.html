@@ -10,24 +10,50 @@
 <th:block layout:fragment="Content">
     <div class="pt-2 container ContentForm">
         <!-- 계좌 정보를 표시하는 필드들 -->
-        <div th:each="accountForm : ${accountForm}">
-            <label>ID: <span th:text="${accountForm.id}"></span></label><br>
-            <label>입금액: <span th:text="${accountForm.depositMoney}"></span></label><br>
-            <label>입금 내용: <span th:text="${accountForm.depositDetails}"></span></label><br>
-            <label>입금 시간: <span th:text="${accountForm.depositTime}"></span></label><br>
-            <label>출금액: <span th:text="${accountForm.withdrawMoney}"></span></label><br>
-            <label>출금 내용: <span th:text="${accountForm.withdrawDetails}"></span></label><br>
-            <label>출금 시간: <span th:text="${accountForm.withdrawTime}"></span></label><br>
-            <label>총 금액: <span th:text="${accountForm.totalMoney}"></span></label><br>
-        </div>
-        <form th:action="@{/account}" th:object="${accountForm}" method="post" role="form">
+        <table class="container text-center">
+            <thead>
+            <tr class="row">
+                <th class="col-2">순서</th>
+                <th class="col-2">입금액</th>
+                <th class="col-2">입금 내용</th>
+                <th class="col-2">출금액</th>
+                <th class="col-2">출금 내용</th>
+                <th class="col-2">총 금액</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                    class="row"
+                    th:each="accountForm : ${accountForm}"
+            >
+                <td class="col-2">
+                    <a th:text="${accountForm.id}">글 번호</a>
+                </td>
+                <td class="col-2">
+                    <a th:text="${accountForm.depositMoney}">입금액</a>
+                </td>
+                <td class="col-2">
+                    <a th:text="${accountForm.depositDetails}">입금 내용</a>
+                </td>
+                <td class="col-2">
+                    <a th:text="${accountForm.withdrawMoney}">출금액</a>
+                </td>
+                <td class="col-2">
+                    <a th:text="${accountForm.withdrawDetails}">출금 내용</a>
+                </td>
+                <td class="col-2">
+                    <a th:text="${accountForm.totalMoney}">총 금액</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <form method="post" role="form" th:action="@{/account}" th:object="${accountSaveForm}">
             <!-- 새로운 계좌를 추가하는 폼 -->
             <label>새로운 계좌 추가:</label><br>
-            <label>입금액: <input type="text" th:field="*{depositMoney}" /></label><br>
-            <label>입금 내용: <input type="text" th:field="*{depositDetails}" /></label><br>
-            <label>출금액: <input type="text" th:field="*{withdrawMoney}" /></label><br>
-            <label>출금 내용: <input type="text" th:field="*{withdrawDetails}" /></label><br>
-            <label>총 금액: <input type="text" th:field="*{totalMoney}" /></label><br>
+            <label>입금액: <input th:field="*{depositMoney}" type="text"/></label><br>
+            <label>입금 내용: <input th:field="*{depositDetails}" type="text"/></label><br>
+            <label>출금액: <input th:field="*{withdrawMoney}" type="text"/></label><br>
+            <label>출금 내용: <input th:field="*{withdrawDetails}" type="text"/></label><br>
 
             <button type="submit">저장</button>
         </form>

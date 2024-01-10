@@ -44,7 +44,7 @@ public class AccountAPI {
 
     @GetMapping("/api/account")
     public List<AccountDTO> getAccount() {
-        return accountService.getAccount();
+        return accountService.getApiAccount();
     }
 
     @Data

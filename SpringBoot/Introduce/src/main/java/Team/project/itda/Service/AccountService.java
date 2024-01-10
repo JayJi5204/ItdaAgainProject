@@ -4,6 +4,8 @@ import Team.project.itda.DTO.AccountDTO;
 import Team.project.itda.Entity.AccountEntity;
 import Team.project.itda.Repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +20,6 @@ public class AccountService {
 
     public void saveAccount(AccountDTO accountDTO) {
         Long totalMoney = accountDTO.getDepositMoney() - accountDTO.getWithdrawMoney();
-        accountDTO.setTotalMoney(totalMoney);
-
         AccountEntity accountEntity = new AccountEntity(
                 accountDTO.getId(),
                 accountDTO.getDepositMoney(),
@@ -28,20 +28,16 @@ public class AccountService {
                 accountDTO.getWithdrawMoney(),
                 accountDTO.getWithdrawDetails(),
                 accountDTO.getWithdrawTime(),
-                accountDTO.getTotalMoney()
+                totalMoney
         );
         accountRepository.save(accountEntity);
     }
 
-
-    public List<AccountDTO> getAccount() {    //계좌 불러오기
-        List<AccountEntity> accountEntity = accountRepository.findAll();
-        return accountEntity.stream().map(AccountDTO::toAccount).collect(Collectors.toList());
+    public Page<AccountDTO> getAccount(Pageable pageable) { //계좌 불러오기
+        Page<AccountEntity> accountEntityPage = accountRepository.findAll(pageable);
+        return accountEntityPage.map(AccountDTO::toAccount);
     }
 
-    public List<AccountDTO> updateAccount() {
-        return null;
-    }
 
     public void deleteAccount(Long id) { //계좌 내역 삭제
         accountRepository.deleteById(id);
@@ -49,6 +45,7 @@ public class AccountService {
 
     //Api 설계를 위한 Service
     public Long saveApiAccount(AccountDTO accountDTO) {
+        Long totalMoney = accountDTO.getDepositMoney() - accountDTO.getWithdrawMoney();
         AccountEntity accountEntity = new AccountEntity(
                 accountDTO.getId(),
                 accountDTO.getDepositMoney(),
@@ -57,9 +54,14 @@ public class AccountService {
                 accountDTO.getWithdrawMoney(),
                 accountDTO.getWithdrawDetails(),
                 accountDTO.getWithdrawTime(),
-                accountDTO.getTotalMoney()
+                totalMoney
         );
         accountRepository.save(accountEntity);
         return accountEntity.getId();
+    }
+
+    public List<AccountDTO> getApiAccount() {    //계좌 불러오기
+        List<AccountEntity> accountEntity = accountRepository.findAll();
+        return accountEntity.stream().map(AccountDTO::toAccount).collect(Collectors.toList());
     }
 }

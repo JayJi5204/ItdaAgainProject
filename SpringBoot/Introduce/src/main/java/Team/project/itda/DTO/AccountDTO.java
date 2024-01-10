@@ -2,15 +2,11 @@ package Team.project.itda.DTO;
 
 
 import Team.project.itda.Entity.AccountEntity;
-import Team.project.itda.Service.AccountService;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 public class AccountDTO {
 
     private Long id;

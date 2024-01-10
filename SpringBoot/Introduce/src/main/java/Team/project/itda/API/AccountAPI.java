@@ -31,7 +31,7 @@ public class AccountAPI {
                 request.getWithdrawMoney(),
                 request.getWithdrawDetails(),
                 null,
-                request.totalMoney  // 계산된 totalMoney로 설정
+                request.getTotalMoney()  // 계산된 totalMoney로 설정
         );
 
         // 계좌를 저장하고 생성된 ID를 가져옴

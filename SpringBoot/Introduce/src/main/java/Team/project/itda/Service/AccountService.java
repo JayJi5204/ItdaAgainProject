@@ -18,8 +18,12 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
 
+    // AccountService.java
     public void saveAccount(AccountDTO accountDTO) {
-        Long totalMoney = accountDTO.getDepositMoney() - accountDTO.getWithdrawMoney();
+        AccountEntity lastAccountEntity = accountRepository.findFirstByOrderByIdDesc();
+        Long lastTotalMoney = (lastAccountEntity != null) ? lastAccountEntity.getTotalMoney() : 0;
+        Long totalMoney = lastTotalMoney + accountDTO.getDepositMoney() - accountDTO.getWithdrawMoney();
+
         AccountEntity accountEntity = new AccountEntity(
                 accountDTO.getId(),
                 accountDTO.getDepositMoney(),
@@ -32,6 +36,7 @@ public class AccountService {
         );
         accountRepository.save(accountEntity);
     }
+
 
     public Page<AccountDTO> getAccount(Pageable pageable) { //계좌 불러오기
         Page<AccountEntity> accountEntityPage = accountRepository.findAll(pageable);

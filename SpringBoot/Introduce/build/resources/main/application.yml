@@ -1,30 +1,16 @@
 server:
   port: 8081
 
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/itdateamproject?serverTimezone=UTC&characterEncoding=UTF-8
-#    username: itda
-#    password: itda1234!
-#
-#
-#  jpa:
-#    database-platform: org.hibernate.dialect.MySQLDialect
-#    hibernate:
-#      ddl-auto: create
-#    properties:
-#      hibernate:
-#        format_sql: true
-
 spring:
+  #  로컬 db
   datasource:
-    url: jdbc:oracle:thin:@127.0.0.1:1521:XE
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/itdadb
     username: itda
-    password: 1234
-    driver-class-name: oracle.jdbc.driver.OracleDriver
+    password: itda1234
 
   jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: create
     properties:

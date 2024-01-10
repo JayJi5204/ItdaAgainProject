@@ -61,7 +61,6 @@ out/
 
 # JIRA plugin
 atlassian-ide-plugin.xml
-
 # Cursive Clojure plugin
 .idea/replstate.xml
 
@@ -221,9 +220,3 @@ gradle-app.setting
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
-
-### Gradle Patch ###
-# Java heap dump
-*.hprof
-
-# End of https://www.toptal.com/developers/gitignore/api/intellij,macos,windows,gradle,java

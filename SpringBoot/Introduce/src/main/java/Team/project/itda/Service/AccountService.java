@@ -50,7 +50,10 @@ public class AccountService {
 
     //Api 설계를 위한 Service
     public Long saveApiAccount(AccountDTO accountDTO) {
-        Long totalMoney = accountDTO.getDepositMoney() - accountDTO.getWithdrawMoney();
+        AccountEntity lastAccountEntity = accountRepository.findFirstByOrderByIdDesc();
+        Long lastTotalMoney = (lastAccountEntity != null) ? lastAccountEntity.getTotalMoney() : 0;
+        Long totalMoney = lastTotalMoney + accountDTO.getDepositMoney() - accountDTO.getWithdrawMoney();
+
         AccountEntity accountEntity = new AccountEntity(
                 accountDTO.getId(),
                 accountDTO.getDepositMoney(),

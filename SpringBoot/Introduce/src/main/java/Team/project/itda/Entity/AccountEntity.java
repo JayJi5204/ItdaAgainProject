@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class AccountEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //테스트
     @Column(name = "account_Id")
     private Long id;    //계좌 순서
 

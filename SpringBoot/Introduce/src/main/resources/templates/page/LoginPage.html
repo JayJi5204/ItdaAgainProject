@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/Layout}">
+<head>
+    <title>로그인 페이지</title>
+</head>
+<body>
+    <th:block layout:fragment="Content">
+        <div class="pt-2 container ContentForm ">
+            로그인 페이지
+            <hr>
+            <form th:action="@{/loginProcess}" method="post">
+                <div>
+                    <label>Username:</label>
+                    <input type="text" name="username">
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="password" name="password">
+                </div>
+<!--                csrf 토큰-->
+<!--                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+                <div>
+                    <button type="submit">Login</button>
+                    <a href="/join">SignUp</a>
+                </div>
+            </form>
+        </div>
+    </th:block>
+</body>
+</html>

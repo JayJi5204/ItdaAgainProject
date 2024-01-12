@@ -1,13 +1,8 @@
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Header</title>
-</head>
-<body>
 <th:block class="Header" th:fragment="Header">
     <div class="text-center HeaderBody">
         <div class="row">
             <div class="col">
+                <p sec:authorize="isAuthenticated()" th:text="${id + '님 환영합니다'}"></p>
             </div>
             <div class="col-6">
                 <div class="d-flex justify-content-center">
@@ -19,11 +14,11 @@
             </div>
             <div class="col">
                 <div class="d-flex justify-content-end">
-                    <div class="me-2"><a th:href="@{/login}">로그인</a></div>
+                    <div class="me-2">
+                        <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+                        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃">로그아웃</a>
                 </div>
             </div>
         </div>
     </div>
 </th:block>
-</body>
-</html>

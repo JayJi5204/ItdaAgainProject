@@ -24,8 +24,6 @@ public class JoinController {
     @PostMapping("/joinProcess")
     public String joinProcess(JoinDTO joinDTO){
 
-        System.out.println(joinDTO.getUsername());
-
         joinService.joinProcess(joinDTO);
 
         // Todo : 회원가입 성공 시 로그인페이지, 실패 시 조인페이지로 리다이렉션

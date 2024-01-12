@@ -23,6 +23,7 @@
                     <div class="me-2">
                         <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
                         <a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃">로그아웃</a>
+                    </div>
                 </div>
             </div>
         </div>

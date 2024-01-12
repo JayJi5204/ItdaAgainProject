@@ -18,12 +18,16 @@ public class JoinService {
     public void joinProcess(JoinDTO joinDTO) {
 
         // todo: db에 동일한 loginId를 가진 회원이 존재하는지 검증 로직 필요
+        boolean isUser = userRepository.existsByName(joinDTO.getName());
+        if(isUser){
+            return;
+        }
 
         UserEntity data = new UserEntity();
 
-        data.setLoginId(joinDTO.getLoginId());
+        data.setUsername(joinDTO.getUsername());
         data.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword()));
-        data.setUserName(joinDTO.getUserName());
+        data.setName(joinDTO.getName());
         data.setRole("ROLE_USER");
 
         userRepository.save(data);

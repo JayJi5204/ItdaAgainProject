@@ -18,16 +18,15 @@ public class UserEntity {
     private Long id;
 
     @Column(unique = true)
-    private String loginId;     // 로그인 ID
+    private String username;     // 로그인 ID
     private String password;    // 비밀번호
-    @Column(unique = true)
-    private String userName;    // 닉네임
+    private String name;    // 이름
 
     private String role;
 
-    public UserEntity(String loginId, String password, String userName) {
-        this.loginId = loginId;
+    public UserEntity(String username, String password, String name) {
+        this.username = username;
         this.password = password;
-        this.userName = userName;
+        this.name = name;
     }
 }

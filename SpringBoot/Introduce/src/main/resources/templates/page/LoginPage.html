@@ -20,8 +20,11 @@
                     <label>Password:</label>
                     <input type="password" name="password">
                 </div>
+<!--                csrf 토큰-->
+<!--                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                 <div>
                     <button type="submit">Login</button>
+                    <a href="/join">SignUp</a>
                 </div>
             </form>
         </div>

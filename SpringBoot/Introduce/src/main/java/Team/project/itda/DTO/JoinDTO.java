@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class JoinDTO {
 
-    private String loginId;
+    private String username;
     private String password;
-    private String userName;
+    private String name;
 }

@@ -1,4 +1,4 @@
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" rel="stylesheet"/>
@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/CSS/Header.css}"/>
     <link rel="stylesheet" th:href="@{/CSS/SideBar.css}"/>
     <link rel="stylesheet" th:href="@{/CSS/Footer.css}"/>
+    <link rel="stylesheet" th:href="@{/CSS/LoginSideBar.css}"/>
     <script th:src="@{/JQuery/ToggleBar.js}"></script>
     <meta charset="UTF-8">
     <title>Layout</title>
@@ -15,7 +16,9 @@
 <body>
 <div class="indexForm">
     <div class="d-flex">
+        <div>
             <th:block th:replace="~{fragments/SideBar :: SideBar}">SideBar</th:block>
+        </div>
         <div class="container-fluid">
             <div>
                 <th:block th:replace="~{fragments/Header :: Header}">Header</th:block>
@@ -26,6 +29,11 @@
             <div class="pt-2">
                 <th:block th:replace="~{fragments/Footer :: Footer}">Footer</th:block>
             </div>
+        </div>
+        <div>
+            <aside class="loginSideBar">
+                <th:block th:replace="~{fragments/LoginSideBar :: LoginSideBar}">LoginSideBar</th:block>
+            </aside>
         </div>
     </div>
 </div>

@@ -1,0 +1,10 @@
+
+.loginSideBar {
+  z-index: 2;
+  position: fixed;
+  transition: transform 0.3s, width 0.3s;
+}
+
+.open .loginSideBar {
+  width: 14rem;
+}

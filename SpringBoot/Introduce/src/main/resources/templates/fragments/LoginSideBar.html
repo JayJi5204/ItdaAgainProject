@@ -1,0 +1,17 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>SideBar</title>
+</head>
+<body>
+<th:block class="LoginSideBar" th:fragment="LoginSideBar">
+    <div class="SideBarBody text-center">
+        <div class="SideBarForm" ><a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃">로그아웃</a></div>
+        <div class="SideBarForm" ><p style="color:black;" sec:authorize="isAuthenticated()" th:text="${id + '님 환영합니다'}">로그인해주세요</p></div>
+        <div class="SideBarForm" ><a style="color:black;" th:text="메뉴2" th:href="@{/account}">메뉴1</a></div>
+        <div class="SideBarForm" ><a style="color:black;" th:text="메뉴3" th:href="@{/board}">메뉴3</a></div>
+    </div>
+</th:block>
+</body>
+</html>

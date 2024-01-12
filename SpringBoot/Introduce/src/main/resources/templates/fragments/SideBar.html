@@ -4,13 +4,13 @@
     <title>SideBar</title>
 </head>
 <body>
-    <th:block class="SideBar" th:fragment="SideBar">
-        <div class="SideBarBody text-center">
-            <div class="SideBarForm" ><a style="color:black;" th:text="Itda" th:href="@{/}">로고</a></div>
-            <div class="SideBarForm" ><a style="color:black;" th:text="통장관리" th:href="@{/account}">메뉴1</a></div>
-            <div class="SideBarForm" ><a style="color:black;" th:text="랭킹" th:href="@{/ranking}">메뉴2</a></div>
-            <div class="SideBarForm" ><a style="color:black;" th:text="게시판" th:href="@{/board}">메뉴3</a></div>
-        </div>
-    </th:block>
+<th:block class="SideBar" th:fragment="SideBar">
+    <div class="SideBarBody text-center">
+        <div class="SideBarForm" ><a style="color:black;" th:text="Itda" th:href="@{/}">로고</a></div>
+        <div class="SideBarForm" ><a style="color:black;" th:text="상품주문" th:href="@{/order}">메뉴2</a></div>
+        <div class="SideBarForm" ><a style="color:black;" th:text="통장관리" th:href="@{/account}">메뉴1</a></div>
+        <div class="SideBarForm" ><a style="color:black;" th:text="게시판" th:href="@{/board}">메뉴3</a></div>
+    </div>
+</th:block>
 </body>
 </html>

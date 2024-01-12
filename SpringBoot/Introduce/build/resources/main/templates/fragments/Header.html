@@ -1,3 +1,9 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+</head>
+<body>
 <th:block class="Header" th:fragment="Header">
     <div class="text-center HeaderBody">
         <div class="row">
@@ -9,16 +15,20 @@
                     <label>
                         <input type="search">
                     </label>
-                    <button type="submit">검색</button>
+                    <button type="submit">검색</button><div>
+                    <a id="login" >로그인토글</a>
+                </div>
                 </div>
             </div>
             <div class="col">
                 <div class="d-flex justify-content-end">
                     <div class="me-2">
-                        <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
-                        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃">로그아웃</a>
+                     
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </th:block>
+</body>
+</html>

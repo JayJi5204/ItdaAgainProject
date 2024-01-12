@@ -21,7 +21,7 @@ public class JoinController {
     }
 
     @PostMapping("/joinProcess")
-    public String joinProcess(JoinDTO joinDTO){
+    public String joinProcess(JoinDTO joinDTO) {
 
         System.out.println(joinDTO.getLoginId());
 

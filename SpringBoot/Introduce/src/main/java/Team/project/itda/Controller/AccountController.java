@@ -29,7 +29,6 @@ public class AccountController {
         return "page/AccountPage";
     }
 
-    @Transactional
     @PostMapping("/account")
     public String postStartGame(@Valid AccountDTO accountDTO) {
         accountService.saveAccount(accountDTO);

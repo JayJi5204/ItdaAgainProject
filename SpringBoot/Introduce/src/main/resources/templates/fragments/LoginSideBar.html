@@ -5,12 +5,16 @@
 </head>
 <body>
 <th:block class="LoginSideBar" th:fragment="LoginSideBar">
-    <div class="SideBarBody text-center">
-        <div class="SideBarForm" ><a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+    <div class="LoginSideBarBody text-center">
+        <div class="LoginSideBarHeaderForm">
+            <h5 class="LoginSideX login">x</h5>
+            <img th:src="@{/Image/LoginSideImage.png}" alt="로그인이미지">
+            <p class="mt-3" style="color:black;" sec:authorize="isAuthenticated()" th:text="${id}">이름</p>
+        </div>
+        <div class="LoginSideBarForm" ><a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃">로그아웃</a></div>
-        <div class="SideBarForm" ><p style="color:black;" sec:authorize="isAuthenticated()" th:text="${id + '님 환영합니다'}">로그인해주세요</p></div>
-        <div class="SideBarForm" ><a style="color:black;" th:text="메뉴2" th:href="@{/account}">메뉴1</a></div>
-        <div class="SideBarForm" ><a style="color:black;" th:text="메뉴3" th:href="@{/board}">메뉴3</a></div>
+        <div class="LoginSideBarForm" ><a style="color:black;" th:text="메뉴2" th:href="@{/account}">메뉴1</a></div>
+        <div class="LoginSideBarForm" ><a style="color:black;" th:text="메뉴3" th:href="@{/board}">메뉴3</a></div>
     </div>
 </th:block>
 </body>

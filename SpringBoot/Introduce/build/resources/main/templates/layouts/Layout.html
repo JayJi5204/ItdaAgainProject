@@ -16,9 +16,7 @@
 <body>
 <div class="indexForm">
     <div class="d-flex">
-        <div>
-            <th:block th:replace="~{fragments/SideBar :: SideBar}">SideBar</th:block>
-        </div>
+        <th:block th:replace="~{fragments/SideBar :: SideBar}">SideBar</th:block>
         <div class="container-fluid">
             <div>
                 <th:block th:replace="~{fragments/Header :: Header}">Header</th:block>
@@ -31,9 +29,9 @@
             </div>
         </div>
         <div>
-            <aside class="loginSideBar">
-                <th:block th:replace="~{fragments/LoginSideBar :: LoginSideBar}">LoginSideBar</th:block>
-            </aside>
+        <aside class="LayoutLoginSideBar">
+            <th:block th:replace="~{fragments/LoginSideBar :: LoginSideBar}">LoginSideBar</th:block>
+        </aside>
         </div>
     </div>
 </div>

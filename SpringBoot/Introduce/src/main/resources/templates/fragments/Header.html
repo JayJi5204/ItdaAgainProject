@@ -8,7 +8,7 @@
     <div class="text-center HeaderBody">
         <div class="row">
             <div class="col">
-                <p sec:authorize="isAuthenticated()" th:text="${id + '님 환영합니다'}"></p>
+
             </div>
             <div class="col-6">
                 <div class="d-flex justify-content-center">
@@ -16,14 +16,14 @@
                         <input type="search">
                     </label>
                     <button type="submit">검색</button><div>
-                    <a id="login" >로그인토글</a>
+
                 </div>
                 </div>
             </div>
             <div class="col">
                 <div class="d-flex justify-content-end">
                     <div class="me-2">
-
+                        <img class="cursor login" th:src="@{/Image/LoginHeaderImage.png}" alt="로그인이미지">
                     </div>
                 </div>
             </div>

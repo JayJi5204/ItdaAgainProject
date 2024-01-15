@@ -1,10 +1,25 @@
-
-.loginSideBar {
+.LayoutLoginSideBar {
   z-index: 2;
   position: fixed;
   transition: transform 0.3s, width 0.3s;
 }
 
-.open .loginSideBar {
-  width: 14rem;
+.LoginSideBarBody {
+    background-color: rgb(255, 252, 252);
+    border: 1px solid gray;
+    width: 15rem;
+}
+
+.LoginSideBarHeaderForm {
+  border-bottom: 1px solid gray;
+  padding: 0.5rem;
+}
+.LoginSideX{
+  margin-left: 10rem;
+  cursor: pointer;
+}
+
+.LoginSideBarForm {
+    border-bottom: 1px solid gray;
+    padding: 0.7rem;
 }

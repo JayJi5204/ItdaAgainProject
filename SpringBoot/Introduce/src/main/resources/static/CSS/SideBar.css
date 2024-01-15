@@ -1,14 +1,9 @@
-html,
-body {
-    height: 100%;
-}
-
 .SideBarBody {
-    border: 1px solid green;
+    background-color: #0d6efd;
     width: 15rem;
 }
 
 .SideBarForm {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid rgb(232, 231, 231);
     padding: 0.7rem;
 }

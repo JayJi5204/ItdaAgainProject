@@ -20,16 +20,18 @@ public class AccountService {
 
     // AccountService.java
     public void saveAccount(AccountDTO accountDTO) {
+        Long depositMoney = (accountDTO.getDepositMoney() != null) ? accountDTO.getDepositMoney() : 0;
+        Long withdrawMoney = (accountDTO.getWithdrawMoney() != null) ? accountDTO.getWithdrawMoney() : 0;
         AccountEntity lastAccountEntity = accountRepository.findFirstByOrderByIdDesc();
         Long lastTotalMoney = (lastAccountEntity != null) ? lastAccountEntity.getTotalMoney() : 0;
-        Long totalMoney = lastTotalMoney + accountDTO.getDepositMoney() - accountDTO.getWithdrawMoney();
+        Long totalMoney = lastTotalMoney + depositMoney - withdrawMoney;
 
         AccountEntity accountEntity = new AccountEntity(
                 accountDTO.getId(),
-                accountDTO.getDepositMoney(),
+                depositMoney,
                 accountDTO.getDepositDetails(),
                 accountDTO.getDepositTime(),
-                accountDTO.getWithdrawMoney(),
+                withdrawMoney,
                 accountDTO.getWithdrawDetails(),
                 accountDTO.getWithdrawTime(),
                 totalMoney

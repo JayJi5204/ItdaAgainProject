@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class AccountEntity {
+public class PayEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_Id")
+    @Column(name = "pay_Id")
     private Long id;    //계좌 순서
 
     @Column(name = "depositMoney")

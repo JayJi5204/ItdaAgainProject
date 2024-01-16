@@ -1,6 +1,6 @@
 package Team.project.itda.Controller;
 
-import Team.project.itda.Service.AccountService;
+import Team.project.itda.Service.PayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,7 @@ import java.util.Iterator;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final AccountService accountService;
+    private final PayService payService;
 
     @GetMapping("/")
     public String getHomepage(Model model) {

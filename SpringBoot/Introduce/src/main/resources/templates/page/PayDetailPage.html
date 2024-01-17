@@ -24,25 +24,25 @@
             <tbody>
             <tr
                     class="row"
-                    th:each="accountForm : ${accountForm}"
+                    th:each="payForm : ${payForm}"
             >
                 <td class="col-2">
-                    <a th:text="${accountForm.id}">글 번호</a>
+                    <a th:text="${payForm.id}">글 번호</a>
                 </td>
                 <td class="col-2">
-                    <a th:text="${accountForm.depositMoney}">입금액</a>
+                    <a th:text="${payForm.depositMoney}">입금액</a>
                 </td>
                 <td class="col-2">
-                    <a th:text="${accountForm.depositDetails}">입금 내용</a>
+                    <a th:text="${payForm.depositDetails}">입금 내용</a>
                 </td>
                 <td class="col-2">
-                    <a th:text="${accountForm.withdrawMoney}">출금액</a>
+                    <a th:text="${payForm.withdrawMoney}">출금액</a>
                 </td>
                 <td class="col-2">
-                    <a th:text="${accountForm.withdrawDetails}">출금 내용</a>
+                    <a th:text="${payForm.withdrawDetails}">출금 내용</a>
                 </td>
                 <td class="col-2">
-                    <a th:text="${accountForm.totalMoney}">총 금액</a>
+                    <a th:text="${payForm.totalMoney}">총 금액</a>
                 </td>
             </tr>
             </tbody>

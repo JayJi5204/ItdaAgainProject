@@ -34,7 +34,7 @@ public class PayController {
 
     @GetMapping("/pay/deposit")  //입금 페이지
     public String getPayDepositPage(Model model, Pageable pageable, Long id, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney) {
-        model.addAttribute("accountSaveForm", new PayDTO(id, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney));
+        model.addAttribute("paySaveForm", new PayDTO(id, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney));
         return "page/PayDepositPage";
     }
 
@@ -46,9 +46,9 @@ public class PayController {
 
     @GetMapping("/pay/withdraw")    //출금 페이지
     public String getPayWithdrawPage(Model model, Pageable pageable, Long id, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney) {
-        Page<PayDTO> accountDTOPage = payService.getPay(pageable);
-        model.addAttribute("accountForm", accountDTOPage);
-        model.addAttribute("accountSaveForm", new PayDTO(id, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney));
+        Page<PayDTO> payDTOPage = payService.getPay(pageable);
+        model.addAttribute("payForm", payDTOPage);
+        model.addAttribute("paySaveForm", new PayDTO(id, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney));
         return "page/PayWithdrawPage";
     }
 
@@ -61,8 +61,8 @@ public class PayController {
 
     @GetMapping("/pay/detail")  //관리 페이지
     public String getPayDetailPage(Model model, Pageable pageable) {
-        Page<PayDTO> accountDTOPage = payService.getPay(pageable);
-        model.addAttribute("accountForm", accountDTOPage);
+        Page<PayDTO> payDTOPage = payService.getPay(pageable);
+        model.addAttribute("payForm", payDTOPage);
         return "page/PayDetailPage";
     }
 

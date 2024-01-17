@@ -9,7 +9,7 @@
 <body>
 <th:block layout:fragment="Content">
     <div class="pt-2 textCenter ContentForm">
-        <form method="post" role="form" th:action="@{/pay/withdraw}" th:object="${accountSaveForm}">
+        <form method="post" role="form" th:action="@{/pay/withdraw}" th:object="${paySaveForm}">
                 <div>
                     <label>출금액: <input th:field="*{withdrawMoney}" type="text"/></label>
                 </div>

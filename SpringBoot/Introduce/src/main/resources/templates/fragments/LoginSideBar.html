@@ -1,4 +1,4 @@
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>SideBar</title>
@@ -8,13 +8,18 @@
     <div class="LoginSideBarBody text-center">
         <div class="LoginSideBarHeaderForm">
             <h5 class="LoginSideX login">x</h5>
-            <img th:src="@{/Image/LoginSideImage.png}" alt="로그인이미지">
-            <p class="mt-3" style="color:black;" sec:authorize="isAuthenticated()" th:text="${id}">이름</p>
+            <img alt="로그인이미지" th:src="@{/Image/LoginSideImage.png}">
+            <div class="mt-1">
+                <a style="color:black;">
+                    <span sec:authorize="isAuthenticated()" th:text="${id}">로그인 이름</span>
+                    <span sec:authorize="!isAuthenticated()" th:text="Guest">게스트</span>
+                </a>
+            </div>
         </div>
-        <div class="LoginSideBarForm" ><a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+        <div class="LoginSideBarForm"><a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="로그아웃">로그아웃</a></div>
-        <div class="LoginSideBarForm" ><a style="color:black;" th:text="메뉴2" th:href="@{/account}">메뉴1</a></div>
-        <div class="LoginSideBarForm" ><a style="color:black;" th:text="메뉴3" th:href="@{/board}">메뉴3</a></div>
+        <div class="LoginSideBarForm"><a style="color:black;" th:href="@{/introduce}" th:text="'사이트 소개'">메뉴1</a></div>
+        <div class="LoginSideBarForm"><a style="color:black;" th:href="@{/goal}" th:text="'사이트 목표'">메뉴2</a></div>
     </div>
 </th:block>
 </body>

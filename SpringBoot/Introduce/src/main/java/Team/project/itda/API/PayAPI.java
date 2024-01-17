@@ -1,8 +1,8 @@
 package Team.project.itda.API;
 
 
-import Team.project.itda.DTO.AccountDTO;
-import Team.project.itda.Service.AccountService;
+import Team.project.itda.DTO.PayDTO;
+import Team.project.itda.Service.PayService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,14 +16,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class AccountAPI {
+public class PayAPI {
 
-    private final AccountService accountService;
+    private final PayService payService;
 
     @PostMapping("/api/account")
-    public CreateAccountResponse createAccountResponse(@RequestBody @Valid CreateAccountRequest request) {
+    public CreatePayResponse createAccountResponse(@RequestBody @Valid CreatePayRequest request) {
         // 계산된 totalMoney로 AccountDTO 생성
-        AccountDTO accountDTO = new AccountDTO(
+        PayDTO payDTO = new PayDTO(
                 null,
                 request.getDepositMoney(),
                 request.getDepositDetails(),
@@ -35,28 +35,28 @@ public class AccountAPI {
         );
 
         // 계좌를 저장하고 생성된 ID를 가져옴
-        Long id = accountService.saveApiAccount(accountDTO);
+        Long id = payService.saveApiPay(payDTO);
 
         // 응답에 ID 반환
-        return new CreateAccountResponse(id);
+        return new CreatePayResponse(id);
     }
 
 
     @GetMapping("/api/account")
-    public List<AccountDTO> getAccount() {
-        return accountService.getApiAccount();
+    public List<PayDTO> getPay() {
+        return payService.getApiPay();
     }
 
     @Data
     @AllArgsConstructor
-    static class CreateAccountResponse {
+    static class CreatePayResponse {
         private Long id;
 
     }
 
     @Data
     @AllArgsConstructor
-    static class CreateAccountRequest {
+    static class CreatePayRequest {
         private Long depositMoney;
         private String depositDetails;
         private Long withdrawMoney;

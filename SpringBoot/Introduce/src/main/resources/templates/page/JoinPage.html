@@ -9,20 +9,23 @@
 <body>
     <th:block layout:fragment="Content">
         <div class="pt-2 container ContentForm ">
-            로그인 페이지
+            회원가입
             <hr>
-            <form th:action="@{/joinProcess}" method="post">
+<!--            th:action을 설정하면 자동으로 csrf token이 생성됨-->
+            <form th:action="@{/joinProcess}" th:object="${joinDTO}" method="post">
+                <div th:replace="~{fragments/form_errors :: formErrorsFragment}"></div>
                 <div>
                     <label>Id:</label>
-                    <input type="text" name="username" placeholder="아이디">
+                    <input type="text" th:field="*{username}" placeholder="아이디">
                 </div>
                 <div>
                     <label>Password:</label>
-                    <input type="password" name="password" placeholder="패스워드">
+                    <input type="password" th:field="*{password}" placeholder="패스워드">
+                    <input type="password" th:field="*{password2}" placeholder="패스워드 확인">
                 </div>
                 <div>
                     <label>Name:</label>
-                    <input type="text" name="name" placeholder="이름">
+                    <input type="text" th:field="*{name}" placeholder="이름">
                 </div>
                 <div>
 <!--                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
@@ -32,28 +35,28 @@
         </div>
     </th:block>
 
-    <script th:inline="javascript">
-        var usernameInput = document.getElementById('username');
-        var passwordInput = document.getElementById('password');
-        var checkButton = document.getElementById('checkButton');
+<!--    <script th:inline="javascript">-->
+<!--        var usernameInput = document.getElementById('username');-->
+<!--        var passwordInput = document.getElementById('password');-->
+<!--        var checkButton = document.getElementById('checkButton');-->
 
-        checkButton.addEventListener('click', function() {
-      var username = usernameInput.value;
-      var password = passwordInput.value;
+<!--        checkButton.addEventListener('click', function() {-->
+<!--      var username = usernameInput.value;-->
+<!--      var password = passwordInput.value;-->
 
-      var usernameRegex = /^[a-zA-Z0-9]{6,12}$/;
-      var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,14}$/;
+<!--      var usernameRegex = /^[a-zA-Z0-9]{6,12}$/;-->
+<!--      var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[a-zA-Z\d@$!%*?&]{8,14}$/;-->
 
-      var isUsernameValid = usernameRegex.test(username);
-      var isPasswordValid = passwordRegex.test(password);
+<!--      var isUsernameValid = usernameRegex.test(username);-->
+<!--      var isPasswordValid = passwordRegex.test(password);-->
 
-      if (isUsernameValid && isPasswordValid) {
-        // 유효한 아이디와 비밀번호인 경우, 중복 확인 등의 추가 로직을 구현
-      } else {
-        // 유효하지 않은 아이디나 비밀번호인 경우, 에러 처리 등을 구현
-      }
-    });
+<!--      if (isUsernameValid && isPasswordValid) {-->
+<!--        // 유효한 아이디와 비밀번호인 경우, 중복 확인 등의 추가 로직을 구현-->
+<!--      } else {-->
+<!--        // 유효하지 않은 아이디나 비밀번호인 경우, 에러 처리 등을 구현-->
+<!--      }-->
+<!--    });-->
 
-    </script>
+<!--    </script>-->
 </body>
 </html>

@@ -2,12 +2,10 @@ package Team.project.itda.Repository;
 
 import Team.project.itda.Entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-
+    Optional<UserEntity> findByUsername(String username);
     boolean existsByUsername(String userName);
-    boolean existsByName(String Name);
 
-    UserEntity findByUsername(String username);
 }

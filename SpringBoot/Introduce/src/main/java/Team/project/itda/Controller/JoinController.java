@@ -37,7 +37,7 @@ public class JoinController {
         }
 
         try {
-            joinService.joinProcess(joinDTO);
+            joinService.save(joinDTO);
         } catch (DataIntegrityViolationException e) { // 중복 ID일 경우
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
@@ -49,9 +49,6 @@ public class JoinController {
 
             return "page/joinPage";
         }
-
-//        joinService.joinProcess(joinDTO);
-
 
         return "redirect:/login";
     }

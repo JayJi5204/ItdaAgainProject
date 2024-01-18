@@ -1,5 +1,7 @@
 package Team.project.itda.Controller;
 
+import Team.project.itda.Common.CurrentUser;
+import Team.project.itda.DTO.CustomUserDetails;
 import Team.project.itda.DTO.PayDTO;
 import Team.project.itda.Service.PayService;
 import jakarta.validation.Valid;
@@ -23,8 +25,11 @@ public class PayController {
     private final PayService payService;
 
     @GetMapping("/pay") //통장 관리 페이지
-    public String getPayPage(Model model) {
-        loginSetting(model);
+    public String getPayPage(@CurrentUser CustomUserDetails customUserDetails, Model model) {
+
+        if(customUserDetails != null){
+            model.addAttribute("currentUser",customUserDetails.getUserEntity());
+        }
         return "page/PayPage";
     }
     @GetMapping("/pay/complete") //통장 관리 페이지
@@ -71,16 +76,4 @@ public class PayController {
         payService.deletePay(id);
         return "redirect:/pay/complete";
     }
-    
-    private void loginSetting(Model model) {    //로그인 세팅
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String id = authentication.getName();
-        String role = authentication.getAuthorities().iterator().next().getAuthority();
-
-        model.addAttribute("id", id);
-        model.addAttribute("role", role);
-    }
-
-
-
 }

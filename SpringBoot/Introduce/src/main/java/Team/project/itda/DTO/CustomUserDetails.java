@@ -1,63 +1,24 @@
 package Team.project.itda.DTO;
 
 import Team.project.itda.Entity.UserEntity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.Getter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
-public class CustomUserDetails implements UserDetails {
+@Getter
+public class CustomUserDetails extends User {
 
-    private UserEntity userEntity;
+    private final UserEntity userEntity;
+
     public CustomUserDetails(UserEntity userEntity) {
-
+        super(userEntity.getUsername(),
+                userEntity.getPassword(),
+                List.of(new SimpleGrantedAuthority("USER")));
         this.userEntity = userEntity;
     }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() { // 사용자 권한을 반환함
 
-        Collection<GrantedAuthority> collection = new ArrayList<>();
+    // TODO: 2024-01-18 관리자 계정을 어떻게 만들것인가. 
 
-        collection.add(new GrantedAuthority() {
-
-            @Override
-            public String getAuthority() {
-
-                return userEntity.getRole();
-            }
-        });
-
-        return collection;
-    }
-
-    @Override
-    public String getPassword() {
-        return userEntity.getPassword();
-    }
-
-    @Override
-    public String getUsername() {
-        return userEntity.getUsername();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

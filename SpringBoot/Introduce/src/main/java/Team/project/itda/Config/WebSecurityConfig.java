@@ -15,14 +15,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final CustomUserDetailService userService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
 //                .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화
                 .authorizeHttpRequests((auth) -> auth   // 인증, 인가 설정
-                        .requestMatchers("/", "/login", "/loginProcess", "/join", "/joinProcess").permitAll() // 모두 허용
+                        .requestMatchers("/", "/login", "/loginProcess", "/join", "/joinProcess", "/board/**").permitAll() // 모두 허용
                         .requestMatchers("/my/**", "/account").hasAnyRole("USER") // 회원
                         .anyRequest().authenticated()
                 )

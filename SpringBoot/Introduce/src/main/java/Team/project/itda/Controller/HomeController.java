@@ -2,6 +2,7 @@ package Team.project.itda.Controller;
 
 import Team.project.itda.Common.CurrentUser;
 import Team.project.itda.DTO.CustomUserDetails;
+import Team.project.itda.Entity.UserEntity;
 import Team.project.itda.Service.PayService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,7 @@ public class HomeController {
     private final PayService payService;
 
     @GetMapping("/")
-    public String getHomepage(@CurrentUser CustomUserDetails customUserDetails, Model model) {
-
-        if (customUserDetails != null) {
-            model.addAttribute("currentUser", customUserDetails.getUserEntity());
-        }
+    public String getHomepage() {
 
         return "page/HomePage";
     }

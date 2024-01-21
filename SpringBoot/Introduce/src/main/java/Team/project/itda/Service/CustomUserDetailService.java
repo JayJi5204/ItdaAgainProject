@@ -18,7 +18,7 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override   // 아이디로 사용자 정보를 가져오는 메서드
     public CustomUserDetails loadUserByUsername(String username) {
         UserEntity userEntity = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("해당하는 아이디가 존재하지 않습니다."));
+                .orElseThrow(() -> new UsernameNotFoundException(username + "해당하는 아이디가 존재하지 않습니다."));
 
         return new CustomUserDetails(userEntity);
     }

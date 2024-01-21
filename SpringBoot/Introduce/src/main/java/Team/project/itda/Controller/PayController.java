@@ -25,11 +25,8 @@ public class PayController {
     private final PayService payService;
 
     @GetMapping("/pay") //통장 관리 페이지
-    public String getPayPage(@CurrentUser CustomUserDetails customUserDetails, Model model) {
+    public String getPayPage() {
 
-        if(customUserDetails != null){
-            model.addAttribute("currentUser",customUserDetails.getUserEntity());
-        }
         return "page/PayPage";
     }
     @GetMapping("/pay/complete") //통장 관리 페이지

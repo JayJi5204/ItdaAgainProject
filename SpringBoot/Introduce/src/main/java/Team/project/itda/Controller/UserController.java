@@ -5,11 +5,9 @@ import Team.project.itda.Service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -57,7 +55,7 @@ public class UserController {
             model.addAttribute("errorMessage", e.getMessage());
 
             return "page/joinPage";
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
             return "page/joinPage";

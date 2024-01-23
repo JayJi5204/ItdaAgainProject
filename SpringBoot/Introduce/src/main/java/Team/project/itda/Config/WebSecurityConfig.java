@@ -1,7 +1,6 @@
 package Team.project.itda.Config;
 
 
-import Team.project.itda.Service.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

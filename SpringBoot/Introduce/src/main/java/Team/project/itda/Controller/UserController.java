@@ -1,26 +1,25 @@
 package Team.project.itda.Controller;
 
-import Team.project.itda.DTO.JoinDTO;
+import Team.project.itda.DTO.UserFormDTO;
 import Team.project.itda.Service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+@Log4j2
 @Controller
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/my")
-    public String userPage() {
-
-        return "page/userPage";
-    }
 
     @GetMapping("/login")
     public String loginPage() {
@@ -30,34 +29,36 @@ public class UserController {
 
 
     @GetMapping("/join")
-    public String joinPage(JoinDTO joinDTO) {
+    public String joinPage(UserFormDTO userFormDTO) {
 
-        return "page/joinPage";
+        return "page/JoinPage";
     }
 
     @PostMapping("/joinProcess")
-    public String joinProcess(@Valid JoinDTO joinDTO, BindingResult bindingResult) {
+    public String joinProcess(Model model, @Valid UserFormDTO userFormDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) { // joinDTO 검증 실패 시
             return "page/joinPage";
         }
 
-        if (!joinDTO.getPassword().equals(joinDTO.getPassword2())) { // 비밀번호가 다를경우
+        if (!userFormDTO.getPassword().equals(userFormDTO.getPassword2())) { // 비밀번호가 다를경우
             bindingResult.rejectValue("password2", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
 
             return "page/joinPage";
         }
 
         try {
-            userService.save(joinDTO);
-        } catch (DataIntegrityViolationException e) { // 중복 ID일 경우
+            userService.save(userFormDTO);
+
+        } catch (RuntimeException e) {
             e.printStackTrace();
-            bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
+            log.info("-----------" + e.getMessage() + "------------------");
+
+            model.addAttribute("errorMessage", e.getMessage());
 
             return "page/joinPage";
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
-            bindingResult.reject("signupFailed", e.getMessage());
 
             return "page/joinPage";
         }

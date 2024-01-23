@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JoinDTO {
+public class UserFormDTO {
 
     @Size(min=6, max=12, message="ID의 길이는 6~12글자입니다.")
     @NotEmpty(message = "ID는 필수항목입니다.")

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PayRepository extends JpaRepository<PayEntity,Long> {
-        PayEntity findFirstByOrderByIdDesc();
+        PayEntity findFirstByOrderByPayIdDesc();
 }

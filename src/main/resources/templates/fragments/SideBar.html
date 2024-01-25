@@ -1,0 +1,16 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SideBar</title>
+</head>
+<body>
+<th:block class="SideBar" th:fragment="SideBar">
+    <div class="SideBarBody text-center">
+        <div class="SideBarForm"><a style="color:white;" th:href="@{/}" th:text="Itda">로고</a></div>
+        <div class="SideBarForm"><a style="color:white;" th:href="@{/order}" th:text="상품주문">메뉴1</a></div>
+        <div class="SideBarForm"><a style="color:white;" th:href="@{/pay}" th:text="페이관리">메뉴2</a></div>
+        <div class="SideBarForm"><a style="color:white;" th:href="@{/board}" th:text="게시판">메뉴3</a></div>
+    </div>
+</th:block>
+</body>
+</html>

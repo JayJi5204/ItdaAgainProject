@@ -21,7 +21,7 @@ public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", updatable = false)
-    private Long id;
+    private Long id;    // pk
 
     @Column(unique = true, nullable = false)
     private String username;     // 로그인 ID
@@ -67,7 +67,6 @@ public class UserEntity implements UserDetails {
         // 만료되었는지 확인하는 로직
         return true; // true -> 만료되지 않음
     }
-
 
     // 계정 잠금 여부 반환
     @Override

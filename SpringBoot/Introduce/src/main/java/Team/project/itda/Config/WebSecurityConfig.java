@@ -1,7 +1,6 @@
 package Team.project.itda.Config;
 
 
-import Team.project.itda.Service.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,15 +18,14 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-//                .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화
+//                .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화, Thymeleaf는 csrf 토큰을 자동으로 주입하기 때문에 주석처리함
                 .authorizeHttpRequests((auth) -> auth   // 인증, 인가 설정
-                        .requestMatchers("/", "/login", "/loginProcess", "/join", "/joinProcess", "/board/**").permitAll() // 모두 허용
+                        .requestMatchers("/", "/login", "/join", "/joinProcess", "/board/**").permitAll() // 모두 허용
                         .requestMatchers("/my/**", "/account").hasAnyRole("USER") // 회원
                         .anyRequest().authenticated()
                 )
                 .formLogin((auth) -> auth   // 폼 기반 로그인 설정
                         .loginPage("/login") // 로그인 페이지
-                        .loginProcessingUrl("/loginProcess")
                         .defaultSuccessUrl("/")
                         .permitAll()
                 )
@@ -46,24 +44,8 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-    // 인증 관리자 관련 설정
 
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
-//        return auth.build();
-//    }
-//    @Bean
-//    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, UserDetailService userDetailService)
-//            throws Exception{
-//        return http.getSharedObject(AuthenticationManagerBuilder.class)
-//                .userDetailsService(userDetailService) // 사용자 정보 서비스 설정
-//                .passwordEncoder(bCryptPasswordEncoder)
-//                .and()
-//                .build();
-//    }
-
-    @Bean   // 시큐리티 비활성화
+    @Bean   // 정적 자원 시큐리티 비활성화
     public WebSecurityCustomizer webSecurityCustomizer() {
 
         return (web) -> web
@@ -72,8 +54,8 @@ public class WebSecurityConfig {
 //                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()); // 정해진 enum 값으로 폴더명을 변경해야함
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() { // 암호화
+    @Bean   // 암호화
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
 
         return new BCryptPasswordEncoder();
     }

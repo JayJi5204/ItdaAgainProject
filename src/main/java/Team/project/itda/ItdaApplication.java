@@ -12,5 +12,5 @@ public class ItdaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ItdaApplication.class, args);
 	}
-
+// 깃 이그노어 테스트
 }

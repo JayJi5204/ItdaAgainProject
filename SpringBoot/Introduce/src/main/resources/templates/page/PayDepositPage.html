@@ -9,13 +9,14 @@
 <body>
 <th:block layout:fragment="Content">
     <div class="pt-2 textCenter ContentForm">
-        <form method="post" role="form" th:action="@{/pay/deposit}" th:object="${paySaveForm}">
+        <form method="post" role="form" th:action="@{'/pay/' + ${userForm.id} + '/deposit'}" th:object="${paySaveForm}">
             <label>입금액: <input th:field="*{depositMoney}" type="text"/></label><br>
             <label>입금 내용: <input th:field="*{depositDetails}" type="text"/></label><br>
             <button type="submit" class="btn btn-primary">저장</button>
-            <button class="btn btn-danger" type="submit"><a th:href="@{/pay/complete}" th:text="취소">취소</a></button>
+            <a th:href="@{/pay/complete}" class="btn btn-danger" th:text="취소">취소</a>
         </form>
     </div>
 </th:block>
+
 </body>
 </html>

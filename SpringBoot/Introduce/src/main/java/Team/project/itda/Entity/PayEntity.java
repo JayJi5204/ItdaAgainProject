@@ -20,7 +20,7 @@ public class PayEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pay_Id")
-    private Long id;    //계좌 순서
+    private Long payId;    //계좌 순서
 
     @Column(name = "depositMoney")
     private Long depositMoney; //입금 금액
@@ -45,5 +45,8 @@ public class PayEntity {
     @Column(name = "totalMoney")
     private Long totalMoney;      //총 금액
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
 }

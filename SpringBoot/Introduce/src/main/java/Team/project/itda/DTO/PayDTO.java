@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 public class PayDTO {
 
-    private Long id;
+    private Long payId;
     private Long depositMoney;
     private String depositDetails;
     private LocalDateTime depositTime;
@@ -17,10 +17,11 @@ public class PayDTO {
     private String withdrawDetails;
     private LocalDateTime withdrawTime;
     private Long totalMoney;
+    private Long userId;
 
 
-    public PayDTO(Long id, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney) {
-        this.id = id;
+    public PayDTO(Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney,Long userId) {
+        this.payId = payId;
         this.depositMoney = depositMoney;
         this.depositDetails = depositDetails;
         this.depositTime = depositTime;
@@ -28,19 +29,21 @@ public class PayDTO {
         this.withdrawDetails = withdrawDetails;
         this.withdrawTime = withdrawTime;
         this.totalMoney = totalMoney;
+        this.userId=userId;
     }
 
 
     public static PayDTO toPay(PayEntity payEntity) {
         return new PayDTO(
-                payEntity.getId(),
+                payEntity.getPayId(),
                 payEntity.getDepositMoney(),
                 payEntity.getDepositDetails(),
                 payEntity.getDepositTime(),
                 payEntity.getWithdrawMoney(),
                 payEntity.getWithdrawDetails(),
                 payEntity.getWithdrawTime(),
-                payEntity.getTotalMoney()
+                payEntity.getTotalMoney(),
+                payEntity.getUserEntity().getId()
         );
     }
 

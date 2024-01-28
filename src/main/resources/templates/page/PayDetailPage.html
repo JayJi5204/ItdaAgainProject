@@ -27,7 +27,7 @@
                     th:each="payForm : ${payForm}"
             >
                 <td class="col-2">
-                    <a th:text="${payForm.id}">글 번호</a>
+                    <a th:text="${payForm.payId}">글 번호</a>
                 </td>
                 <td class="col-2">
                     <a th:text="${payForm.depositMoney}">입금액</a>
@@ -48,7 +48,7 @@
             </tbody>
         </table>
 
-        <button class="btn btn-primary"><a th:href="@{/pay}" th:text="뒤로가기">뒤로가기</a></button>
+        <button class="btn btn-primary"><a th:href="@{/pay/{id}(id=${userForm.id})}" th:text="뒤로가기">뒤로가기</a></button>
     </div>
 </th:block>
 </body>

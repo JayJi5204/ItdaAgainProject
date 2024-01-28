@@ -26,15 +26,15 @@ public class PayService {
         Long totalMoney = lastTotalMoney + depositMoney - withdrawMoney;
 
         PayEntity payEntity = new PayEntity(
-                null,
+                payDTO.getPayId(),
                 depositMoney,
                 payDTO.getDepositDetails(),
-                null,
+                payDTO.getDepositTime(),
                 withdrawMoney,
                 payDTO.getWithdrawDetails(),
-                null,
+                payDTO.getWithdrawTime(),
                 totalMoney,
-                UserEntity.builder().build()
+                payDTO.getUserEntity()
         );
         payRepository.save(payEntity);
     }

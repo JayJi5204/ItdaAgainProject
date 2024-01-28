@@ -1,14 +1,13 @@
 package Team.project.itda.Controller;
 
 import Team.project.itda.DTO.PayDTO;
+import Team.project.itda.Entity.PayEntity;
 import Team.project.itda.Entity.UserEntity;
 import Team.project.itda.Repository.UserRepository;
 import Team.project.itda.Service.PayService;
-import jakarta.transaction.Transactional;
+import Team.project.itda.Service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -24,20 +24,22 @@ public class PayController {
 
     private final PayService payService;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping("/pay/{id}") //통장 페이지
     public String getPayPage(@PathVariable("id") Long id, Model model) {
-        Optional<UserEntity> userEntity = userRepository.findById(id);
-        model.addAttribute("userForm", userEntity.orElse(null));
+        UserEntity userEntityId = userService.getUserById(id);
+        //  UserEntity userEntity = userRepository.findById(id).orElseThrow();
+        model.addAttribute("userForm", userEntityId);
         return "page/PayPage";
     }
 
     @GetMapping("/pay/deposit/{id}")    //입금 페이지
-    public String getPayDepositPage(@PathVariable("id") Long id, Model model, Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney,UserEntity userEntity) {
-        Optional<UserEntity> userEntitys = userRepository.findById(id);
-        model.addAttribute("userForm", userEntitys.orElse(null));
+    public String getPayDepositPage(@PathVariable("id") Long id, Model model, Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney, UserEntity userEntity) {
+        UserEntity userEntityId = userService.getUserById(id);
+        model.addAttribute("userForm", userEntityId);
 
-        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney,userEntity));
+        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney, userEntity));
         return "page/PayDepositPage";
     }
 
@@ -45,45 +47,67 @@ public class PayController {
     @PostMapping("/pay/deposit/{id}") //입금 페이지
     public String postPayDepositPage(@PathVariable("id") Long id, @Valid PayDTO payDTO, Model model) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow();
-        payDTO.setUserEntity(userEntity);
+        PayDTO payForm = new PayDTO(
+                payDTO.getPayId(),
+                payDTO.getDepositMoney(),
+                payDTO.getDepositDetails(),
+                payDTO.getDepositTime(),
+                payDTO.getWithdrawMoney(),
+                payDTO.getWithdrawDetails(),
+                payDTO.getWithdrawTime(),
+                payDTO.getTotalMoney(),
+                userEntity
+        );
         model.addAttribute("userForm", userEntity);
-        payService.savePay(payDTO);
-        return "redirect:/pay/complete";
+        payService.savePay(payForm);
+        return "redirect:/pay/complete/" + id;
     }
 
 
     @GetMapping("/pay/withdraw/{id}")    //출금 페이지
-    public String getPayWithdrawPage(@PathVariable("id") Long id, Model model, Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney,UserEntity userEntity) {
+    public String getPayWithdrawPage(@PathVariable("id") Long id, Model model, Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney, UserEntity userEntity) {
         Optional<UserEntity> userEntitys = userRepository.findById(id);
         model.addAttribute("userForm", userEntitys.orElse(null));
 
-        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney,userEntity));
+        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney, userEntity));
         return "page/PayWithdrawPage";
     }
 
     @PostMapping("/pay/withdraw/{id}")   //출금 페이지
     public String postPayWithdrawPage(@PathVariable("id") Long id, @Valid PayDTO payDTO, Model model) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow();
-        payDTO.setUserEntity(userEntity);
+        PayDTO payForm = new PayDTO(
+                payDTO.getPayId(),
+                payDTO.getDepositMoney(),
+                payDTO.getDepositDetails(),
+                payDTO.getDepositTime(),
+                payDTO.getWithdrawMoney(),
+                payDTO.getWithdrawDetails(),
+                payDTO.getWithdrawTime(),
+                payDTO.getTotalMoney(),
+                userEntity
+        );
         model.addAttribute("userForm", userEntity);
-        payService.savePay(payDTO);
-        return "redirect:/pay/complete";
+        payService.savePay(payForm);
+        return "redirect:/pay/complete/" + id;
     }
 
 
-    @GetMapping("/pay/detail/{id}")  //관리 페이지
-    public String getPayDetailPage(@PathVariable("id") Long id, Model model, Pageable pageable) {
-        Page<PayDTO> payDTOPage = payService.getPay(pageable);
-        model.addAttribute("payForm", payDTOPage);
-        Optional<UserEntity> userEntity = userRepository.findById(id);
-        model.addAttribute("userForm", userEntity.get());
+    @GetMapping("/pay/detail/{id}")
+    public String getPayDetailPage(@PathVariable("id") Long id, Model model) {
+        UserEntity userEntity = userService.getUserById(id);
+        model.addAttribute("userForm", userEntity);
+
+        List<PayEntity> payForm = payService.getPayEntitiesByUser(userEntity);
+        model.addAttribute("payForm", payForm);
         return "page/PayDetailPage";
     }
 
-    @GetMapping("/pay/complete") //통장 관리 페이지
-    public String getPayCompletePage(Long id, Model model) {
-        Optional<UserEntity> userEntity = userRepository.findById(id);
-        model.addAttribute("userForm", userEntity.get());
+
+    @GetMapping("/pay/complete/{id}") //통장 관리 페이지
+    public String getPayCompletePage(@PathVariable("id") Long id, Model model) {
+        UserEntity userEntityId = userService.getUserById(id);
+        model.addAttribute("userForm", userEntityId);
         return "page/PayCompletePage";
     }
 

@@ -26,10 +26,10 @@ Itda의 홈페이지를 소개합니다
     $ cd ItdaAgainProject
 
 **실행방법**
-1. [MySQL 설치](https://dev.mysql.com/downloads/windows/installer/)  
-2. [MySQL 설정](https://jayji5204.tistory.com/7) 
+1. [MySQL 설치 바로가기](https://dev.mysql.com/downloads/windows/installer/)  
+2. [MySQL 설정 바로가기](https://jayji5204.tistory.com/7) 
 3. MySQL 실행  
-4. [IntelliJ 설치](https://www.jetbrains.com/ko-kr/idea/download/?section=windows)  
+4. [IntelliJ 설치 바로가기](https://www.jetbrains.com/ko-kr/idea/download/?section=windows)  
 5. 프로젝트 Import  
     [File] -> [Open] -> '/ItdaAgainProject/Project/Itda' 폴더 선택 -> 'build.gradle' 선택 -> 'Open as Project' 선택
 6. 실행  

@@ -4,12 +4,10 @@ package Team.project.itda.DTO;
 import Team.project.itda.Entity.PayEntity;
 import Team.project.itda.Entity.UserEntity;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 public class PayDTO {
 
     private Long payId;
@@ -23,7 +21,7 @@ public class PayDTO {
     private UserEntity userEntity;
 
 
-    public PayDTO(Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney,UserEntity userEntity) {
+    public PayDTO(Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney, UserEntity userEntity) {
         this.payId = payId;
         this.depositMoney = depositMoney;
         this.depositDetails = depositDetails;
@@ -32,7 +30,7 @@ public class PayDTO {
         this.withdrawDetails = withdrawDetails;
         this.withdrawTime = withdrawTime;
         this.totalMoney = totalMoney;
-        this.userEntity=userEntity;
+        this.userEntity = userEntity;
     }
 
 

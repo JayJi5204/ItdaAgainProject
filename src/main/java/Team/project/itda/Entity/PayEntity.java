@@ -29,7 +29,7 @@ public class PayEntity {
     private String depositDetails;   //입금 내용
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(name = "depositTime", updatable = false)
     private LocalDateTime depositTime;  //입금 시간
 
     @Column(name = "withdrawMoney")
@@ -39,7 +39,7 @@ public class PayEntity {
     private String withdrawDetails;   //출금 내용
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(name = "withdrawTime", updatable = false)
     private LocalDateTime withdrawTime;  //출금 시간
 
     @Column(name = "totalMoney")

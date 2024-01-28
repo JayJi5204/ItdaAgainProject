@@ -20,15 +20,21 @@ public class UserService {
     public Long save(UserFormDTO userFormDto) {
 
         // 아이디 중복검사
-        if(userRepository.existsByUsername(userFormDto.getUsername())){
+        if (userRepository.existsByUsername(userFormDto.getUsername())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
 
-       return userRepository.save(UserEntity.builder()
-               .username(userFormDto.getUsername())
-               .password(bCryptPasswordEncoder.encode(userFormDto.getPassword()))
-               .name(userFormDto.getName())
-               .role(UserRole.USER)
-               .build()).getId();
+        return userRepository.save(UserEntity.builder()
+                .username(userFormDto.getUsername())
+                .password(bCryptPasswordEncoder.encode(userFormDto.getPassword()))
+                .name(userFormDto.getName())
+                .role(UserRole.USER)
+                .build()).getId();
     }
+
+    public UserEntity getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow();
+    }
+
 }

@@ -5,19 +5,16 @@ import Team.project.itda.Entity.PayEntity;
 import Team.project.itda.Entity.UserEntity;
 import Team.project.itda.Repository.PayRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PayService {
 
     private final PayRepository payRepository;
-    private final UserService userService;
 
-
-    // AccountService.java
     public void savePay(PayDTO payDTO) {
         Long depositMoney = (payDTO.getDepositMoney() != null) ? payDTO.getDepositMoney() : 0;
         Long withdrawMoney = (payDTO.getWithdrawMoney() != null) ? payDTO.getWithdrawMoney() : 0;
@@ -39,15 +36,8 @@ public class PayService {
         payRepository.save(payEntity);
     }
 
-
-    public Page<PayDTO> getPay(Pageable pageable) { //계좌 불러오기
-        Page<PayEntity> accountEntityPage = payRepository.findAll(pageable);
-        return accountEntityPage.map(PayDTO::toPay);
-    }
-
-
-    public void deletePay(Long id) { //계좌 내역 삭제
-        payRepository.deleteById(id);
+    public List<PayEntity> getPayEntitiesByUser(UserEntity userEntity) {
+        return payRepository.findByUserEntity(userEntity);
     }
 
     //Api 설계를 위한 Service

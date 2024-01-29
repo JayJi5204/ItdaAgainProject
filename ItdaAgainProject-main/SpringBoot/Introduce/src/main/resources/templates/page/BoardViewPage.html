@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layouts/Layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>계좌 페이지</title>
+</head>
+<body>
+<th:block layout:fragment="Content">
+    <div class="pt-2 textCenter ContentForm">
+        <h1 th:text="${'내용'}"></h1>
+        <ul>
+            <li style="list-style-type: none;">
+                <p th:text="${'연결성공'}"></p>
+            </li>
+        </ul>
+    </div>
+</th:block>
+</body>
+</html>

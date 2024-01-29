@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/Layout}">
+<head>
+    <title>로그인 페이지</title>
+</head>
+<body>
+    <th:block layout:fragment="Content">
+        <div class="pt-2 container ContentForm ">
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label class="form-label mt-4">로그인</label>
+                    <th:block>
+                        <div class="${param.error == null? form-floating mb-3 : form-floating mb-3 has-danger}">
+                            <input type="text" name="username" class="${param.error == null? form-control : form-control is-invalid}" id="floatingInput" placeholder="ID">
+                            <label for="floatingInput">ID</label>
+                        </div>
+                    </th:block>
+                    <div class="form-floating mb-4">
+                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        아이디 혹은 비밀번호가 잘못되었습니다.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Log in</button>
+                <a th:href="@{/join}" class="btn btn-secondary">Sign up</a>
+            </form>
+        </div>
+    </th:block>
+</body>
+</html>

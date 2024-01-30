@@ -11,31 +11,31 @@
 <th:block layout:fragment="Content">
     <div class="pt-2 textCenter ContentForm">
 
-    <form th:action="@{board/modify}" th:method="post">
-    <input type="hidden" name="page" th:value="${requestDTO.page}">
-<div class="form-group">
-    <input type="hidden" class="form-control" name="bno" th:value="${dto.bno}" readonly >
-</div>
-<div class="form-group">
-    <label >카테고리</label>
-    <input type="text" class="form-control" name="category" th:value="${dto.category}" >
-</div>
-<div class="form-group">
-    <label >제목</label>
-    <input type="text" class="form-control" name="title" th:value="${dto.title}" >
-</div>
-<div class="form-group">
-    <label >내용</label>
-    <textarea class="form-control" rows="5" name="content">[[${dto.content}]]</textarea>
-</div>
-<div class="form-group">
-    <label >작성자</label>
-    <input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
-</div>
-<div class="form-group">
-    <label >작성일</label>
-    <input type="text" class="form-control" th:value="${#temporals.format(dto.createDt, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-</div>
+        <form th:action="@{board/modify}" th:method="post">
+            <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <div class="form-group">
+                <input type="hidden" class="form-control" name="bno" th:value="${dto.bno}" readonly >
+            </div>
+            <div class="form-group">
+                <label >카테고리</label>
+                <input type="text" class="form-control" name="category" th:value="${dto.category}" >
+            </div>
+            <div class="form-group">
+                <label >제목</label>
+                <input type="text" class="form-control" name="title" th:value="${dto.title}" >
+            </div>
+            <div class="form-group">
+                <label >내용</label>
+                <textarea class="form-control" rows="5" name="content">[[${dto.content}]]</textarea>
+            </div>
+            <div class="form-group">
+                <label >작성자</label>
+                <input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
+            </div>
+            <div class="form-group">
+                <label >작성일</label>
+                <input type="text" class="form-control" th:value="${#temporals.format(dto.createDt, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+            </div>
         </form>
 
         <button type="button" class="btn btn-primary modifyBtn">수정</button>

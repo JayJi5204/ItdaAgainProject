@@ -13,8 +13,6 @@ import org.springframework.data.domain.Sort;
 public class BoardPageRequestDTO { //재사용이 가능하도록 쉽게 만듬
     private int page;
     private int size;
-    private String type;
-    private String keyword;
 
     public BoardPageRequestDTO() {
         this.page = 1;

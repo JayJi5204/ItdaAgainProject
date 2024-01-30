@@ -6,6 +6,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .ContentForm {
+            width: 70%;
+            margin: auto;
+        }
+        .form-group {
+            text-align: left;
+        }
+        .form-control {
+            width: 100%;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .btn-container {
+            text-align: right;
+            margin-top: 19px;
+        }
+        .btn {
+            padding: 5px 12px;
+            font-size: 0.875rem;
+        }
+    </style>
 </head>
 <body>
 <th:block layout:fragment="Content">
@@ -13,13 +38,24 @@
 
         <form th:action="@{board/modify}" th:method="post">
             <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <input type="hidden" name="type" th:value="${requestDTO.type}">
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
             <div class="form-group">
                 <input type="hidden" class="form-control" name="bno" th:value="${dto.bno}" readonly >
             </div>
+<!--            <div class="form-group">-->
+<!--                <label >카테고리</label>-->
+<!--                <input type="text" class="form-control" name="category" th:value="${dto.category}" >-->
+<!--            </div>-->
             <div class="form-group">
-                <label >카테고리</label>
-                <input type="text" class="form-control" name="category" th:value="${dto.category}" >
+                <label>카테고리</label>
+                <select class="form-control custom-select" name="category">
+                    <option value="자유" th:selected="${dto.category =='자유'}">자유</option>
+                    <option value="유머" th:selected="${dto.category =='유머'}">유머</option>
+                    <option value="질문/답변" th:selected="${dto.category =='질문/답변'}">질문/답변</option>
+                </select>
             </div>
+
             <div class="form-group">
                 <label >제목</label>
                 <input type="text" class="form-control" name="title" th:value="${dto.title}" >
@@ -38,12 +74,12 @@
             </div>
         </form>
 
-        <button type="button" class="btn btn-primary modifyBtn">수정</button>
-        <button type="button" class="btn btn-info listBtn">목록</button>
-        <button type="button" class="btn btn-danger removeBtn">삭제</button>
-
+        <div class="btn-container">
+            <button type="button" class="btn btn-primary modifyBtn">수정</button>
+            <button type="button" class="btn btn-info listBtn">목록</button>
+            <button type="button" class="btn btn-danger removeBtn">삭제</button>
+        </div>
     </div>
-
     <script th:inline="javascript">
         var actionForm = $("form");
 
@@ -65,10 +101,17 @@
       });
 
       $(".listBtn").click(function(){
-        var pageInfo = $("input[name='page']");
+
+        var page = $("input[name='page']");
+        var type = $("input[name='type']");
+        var keyword = $("input[name='keyword']");
 
         actionForm.empty();
-        actionForm.append(pageInfo);
+
+        actionForm.append(page);
+        actionForm.append(type);
+        actionForm.append(keyword);
+
         actionForm
             .attr("action", "/board")
             .attr("method", "get");

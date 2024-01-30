@@ -97,9 +97,10 @@ public class BoardController {
         service.modify(dto);
 
         redirectAttributes.addAttribute("page", requestDTO.getPage());
+        redirectAttributes.addAttribute("type", requestDTO.getType());
+        redirectAttributes.addAttribute("keyword", requestDTO.getKeyword());
         redirectAttributes.addAttribute("bno", dto.getBno());
 
         return "redirect:/board/read";
     }
 }
-

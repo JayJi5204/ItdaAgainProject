@@ -4,7 +4,10 @@ import Team.project.itda.DTO.BoardDTO;
 import Team.project.itda.DTO.BoardPageRequestDTO;
 import Team.project.itda.DTO.BoardPageResultDTO;
 import Team.project.itda.Entity.Board;
+import Team.project.itda.Entity.QBoard;
 import Team.project.itda.Repository.BoardRepository;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -41,7 +44,9 @@ public class BoardServiceImpl implements BoardService{
     public BoardPageResultDTO<BoardDTO, Board> getList(BoardPageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("bno").descending());
 
-        Page<Board> result = repository.findAll(pageable);
+        BooleanBuilder booleanBuilder = getSearch(requestDTO);
+
+        Page<Board> result = repository.findAll(booleanBuilder, pageable);
 
         Function<Board, BoardDTO> fn = (entity ->
                 entityToDto(entity));
@@ -72,5 +77,40 @@ public class BoardServiceImpl implements BoardService{
 
             repository.save(entity);
         }
+    }
+
+    private BooleanBuilder getSearch(BoardPageRequestDTO requestDTO) {
+        String type = requestDTO.getType();
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        QBoard qBoard = QBoard.board;
+
+        String keyword = requestDTO.getKeyword();
+
+        BooleanExpression expression = qBoard.bno.gt(0L); // bno > 0
+
+        booleanBuilder.and(expression);
+
+        if (type == null || type.trim().length() == 0) {
+            return booleanBuilder;
+        }
+
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if (type.contains("t")) {
+            conditionBuilder.or(qBoard.title.contains(keyword));
+        }
+        if (type.contains("c")) {
+            conditionBuilder.or(qBoard.content.contains(keyword));
+        }
+        if (type.contains("w")) {
+            conditionBuilder.or(qBoard.writer.contains(keyword));
+        }
+
+        booleanBuilder.and(conditionBuilder);
+
+        return booleanBuilder;
+
     }
 }

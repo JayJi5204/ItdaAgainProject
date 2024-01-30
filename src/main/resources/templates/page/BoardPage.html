@@ -4,19 +4,118 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>계좌 페이지</title>
 </head>
 <body>
 <th:block layout:fragment="Content">
     <div class="pt-2 textCenter ContentForm">
-        <h1 th:text="${'게시판'}" />
-        <ul>
-            <button>글쓰기</button>
-            <li th:each="dto : ${list}" style="list-style-type: none;">
-                <a th:href="@{/board/{no}(no = ${dto.no})}">[[${dto.no}]] --- [[${#temporals.format(dto?.createDt, 'yyyy/MM/dd')}]]</a>
-                <!--        <li th:text="${#temporals.format(dto?.createdDate, 'yyyy/MM/dd')}"></li>-->
+        <h1 class="mt-4">게시판
+            <span>
+                <a th:href="@{/board/register}">
+                    <button type="button" class="btn btn-outline-primary">글쓰기
+                    </button>
+                </a>
+            </span>
+        </h1>
+
+        <form th:action="/board" th:method="get" id="searchForm">
+            <div class="input-group">
+                <input type="hidden" name="page" value = "1">
+                <div class="input-group-prepend">
+                    <select class="custom-select" name="type">
+                        <option th:selected="${boardPageRequestDTO.type == null}">-------</option>
+                        <option value="t" th:selected="${boardPageRequestDTO.type =='t'}" >제목</option>
+                        <option value="c" th:selected="${boardPageRequestDTO.type =='c'}"  >내용</option>
+                        <option value="w"  th:selected="${boardPageRequestDTO.type =='w'}" >작성자</option>
+                        <option value="tc"  th:selected="${boardPageRequestDTO.type =='tc'}" >제목 + 내용</option>
+                        <option value="tcw"  th:selected="${boardPageRequestDTO.type =='tcw'}" >제목 + 내용 + 작성자</option>
+                    </select>
+                </div>
+                <input class="form-control" name="keyword" th:value="${boardPageRequestDTO.keyword}">
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
+                    <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">번호</th>
+                <th scope="col">카테고리</th>
+                <th scope="col">제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">등록일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dto : ${result.dtoList}" >
+                <th scope="row">
+                    <a th:href="@{/board/read(bno = ${dto.bno}, page= ${result.page})}">
+                    [[${dto.bno}]]
+                    </a>
+                </th>
+                <td>[[${dto.category}]]</td>
+                <td>
+                    <a th:href="@{/board/read(bno = ${dto.bno}, page= ${result.page})}">
+                        [[${dto.title}]]
+                    </a>
+                </td>
+                <td>[[${dto.writer}]]</td>
+                <td>[[${#temporals.format(dto?.createDt, 'yyyy/MM/dd')}]]</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <ul class="pagination h-100 justify-content-center align-items-center">
+            <li class="page-item " th:if="${result.prev}">
+                <a class="page-link" th:href="@{/board(page= ${result.start -1})}"
+                   tabindex="-1">이전</a>
+            </li>
+
+            <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                <a class="page-link" th:href="@{/board(page= ${page})}">
+                    [[${page}]]
+                </a>
+            </li>
+
+            <li class="page-item" th:if="${result.next}">
+                <a class="page-link" th:href="@{/board(page= ${result.end +1})}">다음</a>
+            </li>
         </ul>
+
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            var msg = [[${msg}]];
+            console.log(msg);
+            if(msg){
+                $('.modal').modal();
+            }
+        </script>
     </div>
+
 </th:block>
 </body>
 </html>

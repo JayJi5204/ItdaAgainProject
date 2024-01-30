@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface PayRepository extends JpaRepository<PayEntity, Long> {
-    PayEntity findFirstByOrderByPayIdDesc();
+    PayEntity findFirstByUserEntityOrderByPayIdDesc(UserEntity userEntity);
 
     List<PayEntity> findByUserEntity(UserEntity userEntity);
 }

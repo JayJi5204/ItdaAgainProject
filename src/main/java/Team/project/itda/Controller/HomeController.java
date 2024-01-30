@@ -8,11 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,9 +22,9 @@ public class HomeController {
 //    익명 유저를 제외하는 SpEL을 줄여 간편하게 쓰기 위한 커스텀 어노테이션이다.
 //    즉 유저의 id,username,password,role을 가져올 수 있는 어노테이션
     @GetMapping("/")
-    public String getHomepage(@CurrentUser UserEntity userEntity, Model model) {
+    public String getHomePage(@CurrentUser UserEntity userEntity, Model model) {
 
-        if(userEntity != null){
+        if (userEntity != null) {
             Long userId = userEntity.getId();
             model.addAttribute("userId", userId);
         }
@@ -40,6 +36,19 @@ public class HomeController {
     public String postHomePage() {
 
         return "redirect:/";
+    }
+
+    @GetMapping("/introduce")
+    public String getIntroducePage() {
+
+        return "page/IntroducePage";
+    }
+
+    @GetMapping("/goal")
+    public String getGoalPage() {
+
+
+        return "page/GoalPage";
     }
 
 

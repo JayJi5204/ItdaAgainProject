@@ -20,7 +20,7 @@ public class WebSecurityConfig {
         http
 //                .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화, Thymeleaf는 csrf 토큰을 자동으로 주입하기 때문에 주석처리함
                 .authorizeHttpRequests((auth) -> auth   // 인증, 인가 설정
-                        .requestMatchers("/", "/login", "/join", "/joinProcess", "/board/**").permitAll() // 모두 허용
+                        .requestMatchers("/", "/login", "/join", "/joinProcess", "/board/**","/introduce","/goal").permitAll() // 모두 허용
                         .requestMatchers("/my/**", "/account").hasAnyRole("USER") // 회원
                         .anyRequest().authenticated()
                 )

@@ -4,6 +4,7 @@ import Team.project.itda.DTO.PayDTO;
 import Team.project.itda.Entity.PayEntity;
 import Team.project.itda.Entity.UserEntity;
 import Team.project.itda.Repository.PayRepository;
+import Team.project.itda.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,15 @@ import java.util.List;
 public class PayService {
 
     private final PayRepository payRepository;
+    private final UserRepository userRepository;
 
-    public void savePay(PayDTO payDTO) {
+    public void savePay(PayDTO payDTO, Long id) {
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow();
+
         Long depositMoney = (payDTO.getDepositMoney() != null) ? payDTO.getDepositMoney() : 0;
         Long withdrawMoney = (payDTO.getWithdrawMoney() != null) ? payDTO.getWithdrawMoney() : 0;
-        PayEntity lastPayEntity = payRepository.findFirstByOrderByPayIdDesc();
+        PayEntity lastPayEntity = payRepository.findFirstByUserEntityOrderByPayIdDesc(userEntity);
         Long lastTotalMoney = (lastPayEntity != null) ? lastPayEntity.getTotalMoney() : 0;
         Long totalMoney = lastTotalMoney + depositMoney - withdrawMoney;
 
@@ -31,7 +36,7 @@ public class PayService {
                 payDTO.getWithdrawDetails(),
                 payDTO.getWithdrawTime(),
                 totalMoney,
-                payDTO.getUserEntity()
+                userEntity
         );
         payRepository.save(payEntity);
     }

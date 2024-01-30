@@ -4,6 +4,7 @@ import Team.project.itda.Common.CurrentUser;
 import Team.project.itda.DTO.PayDTO;
 import Team.project.itda.Entity.PayEntity;
 import Team.project.itda.Entity.UserEntity;
+import Team.project.itda.Repository.PayRepository;
 import Team.project.itda.Repository.UserRepository;
 import Team.project.itda.Service.PayService;
 import Team.project.itda.Service.UserService;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class PayController {
 
     private final PayService payService;
+    private final PayRepository payRepository;
     private final UserRepository userRepository;
     private final UserService userService;
 
@@ -38,6 +40,8 @@ public class PayController {
     public String getPayDepositPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Long depositMoney, String depositDetails, Long withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Long totalMoney) {
         Long userId = userEntity.getId();
         UserEntity userIdEntity = userService.getUserById(userId);
+        Long nowMoney = payService.getTotalMoney(userId);
+        model.addAttribute("pay", nowMoney);
         model.addAttribute("userForm", userIdEntity);
         model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, withdrawMoney, withdrawDetails, accountTime, totalMoney, userEntity));
         return "page/PayDepositPage";
@@ -64,11 +68,13 @@ public class PayController {
 
 
     @GetMapping("/pay/withdraw")    //출금 페이지
-    public String getPayWithdrawPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Long depositMoney, String depositDetails, Long withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Long totalMoney) {
+    public String getPayWithdrawPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Long depositMoney, String depositDetails, Long withdrawMoney, String withdrawDetails, LocalDateTime accountTime,Long totalMoney, PayEntity payEntity) {
         Long userId = userEntity.getId();
         UserEntity userIdEntity = userService.getUserById(userId);
+        Long nowMoney = payService.getTotalMoney(userId);
+        model.addAttribute("pay", nowMoney);
         model.addAttribute("userForm", userIdEntity);
-        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, withdrawMoney, withdrawDetails, accountTime, totalMoney, userEntity));
+        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, withdrawMoney, withdrawDetails, accountTime,totalMoney, userEntity));
         return "page/PayWithdrawPage";
     }
 
@@ -93,10 +99,6 @@ public class PayController {
 
     @GetMapping("/pay/detail/{id}")//통장 관리 페이지
     public String getPayDetailPage(@PathVariable("id") Long id, @CurrentUser UserEntity userEntity, Model model) {
-//       UserEntity userEntity = userService.getUserById(id);
-        //      model.addAttribute("userForm", userEntity);
-
-
         try {
             // URL로 받은 id와 로그인 유저 id 검증
             userService.isChkUser(id, userEntity.getId());

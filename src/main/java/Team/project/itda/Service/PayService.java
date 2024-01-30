@@ -45,6 +45,16 @@ public class PayService {
         return payRepository.findByUserEntity(userEntity);
     }
 
+    public Long getTotalMoney(Long userId) {
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow();
+        PayEntity lastPayEntity = payRepository.findFirstByUserEntityOrderByPayIdDesc(userEntity);
+        if (lastPayEntity == null) {
+            return 0L;
+        } else {
+            return lastPayEntity.getTotalMoney();
+        }
+    }
+
     //Api 설계를 위한 Service
 //    public Long saveApiPay(PayDTO payDTO) {
 //        PayEntity lastPayEntity = payRepository.findFirstByOrderByPayIdDesc();

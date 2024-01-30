@@ -50,6 +50,12 @@ public class HomeController {
 
         return "page/GoalPage";
     }
+    @GetMapping("/order")
+    public String getOrderPage() {
+
+
+        return "page/OrderPage";
+    }
 
 
 }

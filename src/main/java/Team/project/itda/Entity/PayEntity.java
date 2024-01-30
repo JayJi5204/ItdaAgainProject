@@ -28,10 +28,6 @@ public class PayEntity {
     @Column(name = "depositDetails")
     private String depositDetails;   //입금 내용
 
-    @CreatedDate
-    @Column(name = "depositTime", updatable = false)
-    private LocalDateTime depositTime;  //입금 시간
-
     @Column(name = "withdrawMoney")
     private Long withdrawMoney;  //출금 금액
 
@@ -39,8 +35,8 @@ public class PayEntity {
     private String withdrawDetails;   //출금 내용
 
     @CreatedDate
-    @Column(name = "withdrawTime", updatable = false)
-    private LocalDateTime withdrawTime;  //출금 시간
+    @Column(name = "accountTime", updatable = false)
+    private LocalDateTime accountTime;  // 입출금 시간
 
     @Column(name = "totalMoney")
     private Long totalMoney;      //총 금액

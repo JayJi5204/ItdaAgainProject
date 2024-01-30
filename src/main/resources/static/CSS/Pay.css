@@ -1,0 +1,14 @@
+.PayDetailForm{
+ min-height: 40rem;
+     }
+
+ .PayContent{
+     min-height: 8rem !important;
+       resize: none;
+       }
+ .DivCenter{
+  position: absolute;
+   top: 35%;
+   left: 50%;
+    transform: translate(-50%, -50%);
+ }

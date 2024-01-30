@@ -9,46 +9,50 @@
 <body>
 <th:block layout:fragment="Content">
     <div class="pt-2 container ContentForm">
-        <!-- 계좌 정보를 표시하는 필드들 -->
-        <table class="container text-center">
-            <thead>
-            <tr class="row">
-                <th class="col-2">순서</th>
-                <th class="col-2">입금액</th>
-                <th class="col-2">입금 내용</th>
-                <th class="col-2">출금액</th>
-                <th class="col-2">출금 내용</th>
-                <th class="col-2">총 금액</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr
-                    class="row"
-                    th:each="payForm : ${payForm}"
-            >
-                <td class="col-2">
-                    <a th:text="${payForm.payId}">글 번호</a>
-                </td>
-                <td class="col-2">
-                    <a th:text="${payForm.depositMoney}">입금액</a>
-                </td>
-                <td class="col-2">
-                    <a th:text="${payForm.depositDetails}">입금 내용</a>
-                </td>
-                <td class="col-2">
-                    <a th:text="${payForm.withdrawMoney}">출금액</a>
-                </td>
-                <td class="col-2">
-                    <a th:text="${payForm.withdrawDetails}">출금 내용</a>
-                </td>
-                <td class="col-2">
-                    <a th:text="${payForm.totalMoney}">총 금액</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="PayDetailForm">
+            <table class="container text-center">
+                <thead>
+                <tr class="row">
+                    <th class="col-2">날짜</th>
+                    <th class="col-2">입/출금</th>
+                    <th class="col-2">입/출금액</th>
+                    <th class="col-4">입/출금 내용</th>
+                    <th class="col-2">총 금액</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                        class="row"
+                        th:each="payForm : ${payForm}"
+                >
+                    <td class="col-2">
+                        <a th:text="${#temporals.format(payForm.accountTime, 'YYYY-MM-dd')}">날짜</a>
 
-        <button class="btn btn-primary"><a th:href="@{/pay}" th:text="뒤로가기">뒤로가기</a></button>
+                    </td>
+                    <td class="col-2">
+                        <a th:if="${payForm.withdrawMoney}==0"  th:text="입금">입금</a>
+                        <a th:unless="${payForm.withdrawMoney}==0" th:text="출금">출금</a>
+                    </td>
+                    <td class="col-2">
+                        <a th:if="${payForm.withdrawMoney}==0" th:text="${payForm.depositMoney}">입금액</a>
+                        <a th:unless="${payForm.withdrawMoney}==0" th:text="${payForm.withdrawMoney}">출금액</a>
+                    </td>
+                    <td class="col-4">
+                        <a th:if="${payForm.withdrawMoney}==0" th:text="${payForm.depositDetails}">입금 내용</a>
+                        <a th:unless="${payForm.withdrawMoney}==0" th:text="${payForm.withdrawDetails}">출금 내용</a>
+                    </td>
+                    <td class="col-2">
+                        <a th:text="${payForm.totalMoney}">총 금액</a> 원
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-end me-3 mb-3">
+            <button class="btn btn-primary">
+                <a th:href="@{/pay}" th:text="뒤로가기">뒤로가기</a>
+            </button>
+        </div>
     </div>
 </th:block>
 </body>

@@ -13,22 +13,20 @@ public class PayDTO {
     private Long payId;
     private Long depositMoney;
     private String depositDetails;
-    private LocalDateTime depositTime;
     private Long withdrawMoney;
     private String withdrawDetails;
-    private LocalDateTime withdrawTime;
+    private LocalDateTime accountTime;
     private Long totalMoney;
     private UserEntity userEntity;
 
 
-    public PayDTO(Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney, UserEntity userEntity) {
+    public PayDTO(Long payId, Long depositMoney, String depositDetails, Long withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Long totalMoney, UserEntity userEntity) {
         this.payId = payId;
         this.depositMoney = depositMoney;
         this.depositDetails = depositDetails;
-        this.depositTime = depositTime;
         this.withdrawMoney = withdrawMoney;
         this.withdrawDetails = withdrawDetails;
-        this.withdrawTime = withdrawTime;
+        this.accountTime = accountTime;
         this.totalMoney = totalMoney;
         this.userEntity = userEntity;
     }
@@ -39,10 +37,9 @@ public class PayDTO {
                 payEntity.getPayId(),
                 payEntity.getDepositMoney(),
                 payEntity.getDepositDetails(),
-                payEntity.getDepositTime(),
                 payEntity.getWithdrawMoney(),
                 payEntity.getWithdrawDetails(),
-                payEntity.getWithdrawTime(),
+                payEntity.getAccountTime(),
                 payEntity.getTotalMoney(),
                 payEntity.getUserEntity()
         );

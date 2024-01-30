@@ -13,7 +13,7 @@
             <label>입금액: <input th:field="*{depositMoney}" type="text"/></label><br>
             <label>입금 내용: <input th:field="*{depositDetails}" type="text"/></label><br>
             <button class="btn btn-primary" type="submit">저장</button>
-            <a class="btn btn-danger" th:href="@{'/pay/complete/'+ ${userForm.id}}" th:text="취소">취소</a>
+            <a class="btn btn-danger" th:href="@{/pay/complete}" th:text="취소">취소</a>
         </form>
     </div>
 </th:block>

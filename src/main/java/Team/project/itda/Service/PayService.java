@@ -31,13 +31,13 @@ public class PayService {
                 payDTO.getPayId(),
                 depositMoney,
                 payDTO.getDepositDetails(),
-                payDTO.getDepositTime(),
                 withdrawMoney,
                 payDTO.getWithdrawDetails(),
-                payDTO.getWithdrawTime(),
+                payDTO.getAccountTime(),
                 totalMoney,
                 userEntity
         );
+
         payRepository.save(payEntity);
     }
 

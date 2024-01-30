@@ -30,26 +30,16 @@ public class PayController {
 
     @GetMapping("/pay") //통장 페이지
     public String getPayPage(@CurrentUser UserEntity userEntity, Model model) {
-
         model.addAttribute("userId", userEntity.getId());
-
         return "page/PayPage";
     }
 
-    @GetMapping("/pay/deposit/{id}")    //입금 페이지
-    public String getPayDepositPage(@PathVariable("id") Long id, @CurrentUser UserEntity userEntity, Model model, Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney) {
-        try {
-            // URL로 받은 id와 로그인 유저 id 검증
-            userService.isChkUser(id, userEntity.getId());
-            model.addAttribute("userForm", userEntity);
-            model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney, userEntity));
-
-        } catch (AccessDeniedException e) { // 검증 실패할 경우
-            e.printStackTrace();
-            model.addAttribute("errorMessage", e.getMessage());
-            return "redirect:/";
-        }
-
+    @GetMapping("/pay/deposit")    //입금 페이지
+    public String getPayDepositPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Long depositMoney, String depositDetails, Long withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Long totalMoney) {
+        Long userId = userEntity.getId();
+        UserEntity userIdEntity = userService.getUserById(userId);
+        model.addAttribute("userForm", userIdEntity);
+        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, withdrawMoney, withdrawDetails, accountTime, totalMoney, userEntity));
         return "page/PayDepositPage";
     }
 
@@ -61,25 +51,24 @@ public class PayController {
                 payDTO.getPayId(),
                 payDTO.getDepositMoney(),
                 payDTO.getDepositDetails(),
-                payDTO.getDepositTime(),
                 payDTO.getWithdrawMoney(),
                 payDTO.getWithdrawDetails(),
-                payDTO.getWithdrawTime(),
+                payDTO.getAccountTime(),
                 payDTO.getTotalMoney(),
                 userEntity
         );
         model.addAttribute("userForm", userEntity);
         payService.savePay(payForm, id);
-        return "redirect:/pay/complete/" + id;
+        return "redirect:/pay/complete";
     }
 
 
-    @GetMapping("/pay/withdraw/{id}")    //출금 페이지
-    public String getPayWithdrawPage(@PathVariable("id") Long id, Model model, Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney, UserEntity userEntity) {
-        Optional<UserEntity> userEntitys = userRepository.findById(id);
-        model.addAttribute("userForm", userEntitys.orElse(null));
-
-        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney, userEntity));
+    @GetMapping("/pay/withdraw")    //출금 페이지
+    public String getPayWithdrawPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Long depositMoney, String depositDetails, Long withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Long totalMoney) {
+        Long userId = userEntity.getId();
+        UserEntity userIdEntity = userService.getUserById(userId);
+        model.addAttribute("userForm", userIdEntity);
+        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, withdrawMoney, withdrawDetails, accountTime, totalMoney, userEntity));
         return "page/PayWithdrawPage";
     }
 
@@ -90,34 +79,43 @@ public class PayController {
                 payDTO.getPayId(),
                 payDTO.getDepositMoney(),
                 payDTO.getDepositDetails(),
-                payDTO.getDepositTime(),
                 payDTO.getWithdrawMoney(),
                 payDTO.getWithdrawDetails(),
-                payDTO.getWithdrawTime(),
+                payDTO.getAccountTime(),
                 payDTO.getTotalMoney(),
                 userEntity
         );
         model.addAttribute("userForm", userEntity);
         payService.savePay(payForm, id);
-        return "redirect:/pay/complete/" + id;
+        return "redirect:/pay/complete";
     }
 
 
-    @GetMapping("/pay/detail/{id}")
-    public String getPayDetailPage(@PathVariable("id") Long id, Model model) {
-        UserEntity userEntity = userService.getUserById(id);
-        model.addAttribute("userForm", userEntity);
+    @GetMapping("/pay/detail/{id}")//통장 관리 페이지
+    public String getPayDetailPage(@PathVariable("id") Long id, @CurrentUser UserEntity userEntity, Model model) {
+//       UserEntity userEntity = userService.getUserById(id);
+        //      model.addAttribute("userForm", userEntity);
 
-        List<PayEntity> payForm = payService.getPayEntitiesByUser(userEntity);
-        model.addAttribute("payForm", payForm);
+
+        try {
+            // URL로 받은 id와 로그인 유저 id 검증
+            userService.isChkUser(id, userEntity.getId());
+            model.addAttribute("userForm", userEntity);
+            List<PayEntity> payForm = payService.getPayEntitiesByUser(userEntity);
+            model.addAttribute("payForm", payForm);
+
+        } catch (AccessDeniedException e) { // 검증 실패할 경우
+            e.printStackTrace();
+            model.addAttribute("errorMessage", e.getMessage());
+            return "redirect:/";
+        }
         return "page/PayDetailPage";
     }
 
 
-    @GetMapping("/pay/complete/{id}") //통장 관리 페이지
-    public String getPayCompletePage(@PathVariable("id") Long id, Model model) {
-        UserEntity userEntityId = userService.getUserById(id);
-        model.addAttribute("userForm", userEntityId);
+    @GetMapping("/pay/complete")
+    public String getPayCompletePage(@CurrentUser UserEntity userEntity, Model model) {
+        model.addAttribute("userId", userEntity.getId());
         return "page/PayCompletePage";
     }
 

@@ -1,12 +1,18 @@
 package team.project.itda.Repository;
 
 import Team.project.itda.Entity.Board;
+import Team.project.itda.Entity.QBoard;
 import Team.project.itda.Repository.BoardRepository;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -22,6 +28,7 @@ public class BoardRepositoryTest {
 
             Board board = Board.builder()
                     .title("title..." + i)
+                    .category("category")
                     .content("content..." + i)
                     .writer("user" + (i % 10))
                     .build();
@@ -45,5 +52,54 @@ public class BoardRepositoryTest {
             boardRepository.save(board);
 
         }
+    }
+
+    @Test
+    public void testQuery1() {
+        PageRequest pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+
+        QBoard qBoard = QBoard.board;
+
+        String keyword = "1";
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        BooleanExpression expression = qBoard.title.contains(keyword);
+
+        builder.and(expression);
+
+        Page<Board> result = boardRepository.findAll(builder, pageable);
+
+        result.stream().forEach(board -> {
+            System.out.println(board);
+        });
+    }
+
+    @Test
+    public void testQuery2() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+
+        QBoard qBoard = QBoard.board;
+
+        String keyword = "1";
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        BooleanExpression exTitle = qBoard.title.contains(keyword);
+
+        BooleanExpression exContent = qBoard.content.contains(keyword);
+
+        BooleanExpression exAll = exTitle.or(exContent);
+
+        builder.and(exAll);
+
+        builder.and(qBoard.bno.gt(0L));
+
+        Page<Board> result = boardRepository.findAll(builder, pageable);
+
+        result.stream().forEach(board -> {
+            System.out.println(board);
+        });
     }
 }

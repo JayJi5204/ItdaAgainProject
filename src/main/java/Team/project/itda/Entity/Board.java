@@ -20,8 +20,8 @@ public class Board extends BoardBaseEntity { // BaseBoardEntity를 상속 해아
     @Column(length = 100, nullable = false)
     private String title; //제목
 
-//    @Column(nullable = false)
-//    private String category; //카테고리
+    @Column(nullable = false)
+    private String category; //카테고리
 
     @Column(length = 1500, nullable = false)
     private String content; //내용
@@ -35,6 +35,10 @@ public class Board extends BoardBaseEntity { // BaseBoardEntity를 상속 해아
 
     public void changeContent(String content) {
         this.content = content;
+    }
+
+    public void changeCategory(String category) {
+        this.category = category;
     }
 
     //특정한 엔티티를 수정한 후 save() 했을 경우 동작 (ex 제목이나, 내용을 바꿨을 경우)

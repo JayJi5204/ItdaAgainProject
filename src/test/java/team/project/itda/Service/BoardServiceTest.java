@@ -53,4 +53,31 @@ public class BoardServiceTest {
         resultDTO.getPageList().forEach(i -> System.out.println(i));
     }
 
+    @Test
+    public void testSearch() {
+
+        BoardPageRequestDTO requestDTO = BoardPageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .type("tc") // 검색조건 t, c, w, tc, tcw
+                .keyword("한글")
+                .build();
+
+        BoardPageResultDTO<BoardDTO, Board> resultDTO = service.getList(requestDTO);
+
+        System.out.println("PREV" + resultDTO.isPrev());
+        System.out.println("NEXT" + resultDTO.isNext());
+        System.out.println("TOTAL" + resultDTO.getTotalPage());
+
+
+        System.out.println("----------------------");
+        for (BoardDTO boardDTO : resultDTO.getDtoList()) {
+            System.out.println(boardDTO);
+
+        }
+
+        System.out.println("===========================");
+        resultDTO.getPageList().forEach(i -> System.out.println(i));
+    }
+
 }

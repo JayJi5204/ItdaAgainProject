@@ -1,5 +1,6 @@
 package Team.project.itda.Controller;
 
+import Team.project.itda.Common.CurrentUser;
 import Team.project.itda.DTO.PayDTO;
 import Team.project.itda.Entity.PayEntity;
 import Team.project.itda.Entity.UserEntity;
@@ -8,6 +9,8 @@ import Team.project.itda.Service.PayService;
 import Team.project.itda.Service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,20 +29,29 @@ public class PayController {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    @GetMapping("/pay/{id}") //통장 페이지
-    public String getPayPage(@PathVariable("id") Long id, Model model) {
-        UserEntity userEntityId = userService.getUserById(id);
-        //  UserEntity userEntity = userRepository.findById(id).orElseThrow();
-        model.addAttribute("userForm", userEntityId);
+    @GetMapping("/pay") //통장 페이지
+    public String getPayPage(@CurrentUser UserEntity userEntity, Model model) {
+
+        model.addAttribute("userId", userEntity.getId());
+
         return "page/PayPage";
     }
 
     @GetMapping("/pay/deposit/{id}")    //입금 페이지
-    public String getPayDepositPage(@PathVariable("id") Long id, Model model, Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney, UserEntity userEntity) {
-        UserEntity userEntityId = userService.getUserById(id);
-        model.addAttribute("userForm", userEntityId);
+    public String getPayDepositPage(@PathVariable("id") Long id, @CurrentUser UserEntity userEntity, Model model, Long payId, Long depositMoney, String depositDetails, LocalDateTime depositTime, Long withdrawMoney, String withdrawDetails, LocalDateTime withdrawTime, Long totalMoney) {
+        try{
+            // URL로 받은 id와 로그인 유저 id 검증
+            userService.isChkUser(id, userEntity.getId());
+            model.addAttribute("userForm", userEntity);
+            model.addAttribute("userId", userEntity.getId());   // 위의 코드와 중복될지도..
+            model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney, userEntity));
 
-        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, depositTime, withdrawMoney, withdrawDetails, withdrawTime, totalMoney, userEntity));
+        } catch (AccessDeniedException e) { // 검증 실패할 경우
+            e.printStackTrace();
+            model.addAttribute("errorMessage", e.getMessage());
+            return "redirect:/";
+        }
+
         return "page/PayDepositPage";
     }
 

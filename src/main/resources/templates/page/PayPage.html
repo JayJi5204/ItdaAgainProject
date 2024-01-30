@@ -11,9 +11,10 @@
     <div class="pt-2 ContentForm textCenter">
         <p>어서오십시오.</p>
         <p>원하시는 작업을 선택해주세요.</p>
-        <button class="btn btn-primary"><a th:href="@{/pay/deposit/{id}(id=${userForm.id})}" th:text="입금">입금 바로가기</a></button>
-        <button class="btn btn-primary"><a th:href="@{/pay/withdraw/{id}(id=${userForm.id})}" th:text="출금">출금 바로가기</a></button>
-        <button class="btn btn-primary"><a th:href="@{/pay/detail/{id}(id=${userForm.id})}" th:text="통장내역">내역 바로가기</a></button>
+        <button class="btn btn-primary"><a th:href="@{/pay/deposit/{id}(id=${userId})}" th:text="입금">입금 바로가기</a></button>
+        <button class="btn btn-primary"><a th:href="@{/pay/withdraw/{id}(id=${userId})}" th:text="출금">출금 바로가기</a></button>
+        <button class="btn btn-primary"><a th:href="@{/pay/detail/{id}(id=${userId})}" th:text="통장내역">내역 바로가기</a></button>
+<!--        <button class="btn btn-primary"><a th:href="@{/pay/detail/{id}(id=${userForm.id})}" th:text="통장내역">내역 바로가기</a></button>-->
     </div>
 </th:block>
 </body>

@@ -6,6 +6,7 @@ import Team.project.itda.Entity.UserRole;
 import Team.project.itda.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,16 @@ public class UserService {
     public UserEntity getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow();
+    }
+
+    // 로그인한 유저와 데이터 작성한 유저가 같은지 검증
+    public boolean isChkUser(Long pathId, Long userId) {
+
+        if(pathId != userId) {
+            throw  new AccessDeniedException("인증된 유저가 아닙니다.");
+        }
+
+        return true;
     }
 
 }

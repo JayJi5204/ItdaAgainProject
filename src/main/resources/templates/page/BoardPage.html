@@ -34,7 +34,7 @@
             <tr th:each="dto : ${result.dtoList}" >
                 <th scope="row">
                     <a th:href="@{/board/read(bno = ${dto.bno}, page= ${result.page})}">
-                    [[${dto.bno}]]
+                        [[${dto.bno}]]
                     </a>
                 </th>
                 <td>[[${dto.category}]]</td>

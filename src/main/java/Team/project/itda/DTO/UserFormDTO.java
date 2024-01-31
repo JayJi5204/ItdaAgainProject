@@ -4,18 +4,16 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class UserFormDTO {
 
-    @Size(min=6, max=12, message="ID의 길이는 6~12글자입니다.")
+    @Size(min = 6, max = 12, message = "ID의 길이는 6~12글자입니다.")
     @NotEmpty(message = "ID는 필수항목입니다.")
     private String username;
 
     @NotEmpty(message = "비밀번호는 필수항목입니다.")
-    @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,12}$", message ="비밀번호는 대소문자와 숫자, 특수문자를 포함한 8~12글자입니다.")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,12}$", message = "비밀번호는 대소문자와 숫자, 특수문자를 포함한 8~12글자입니다.")
     private String password;
 
     @NotEmpty(message = "비밀번호 확인은 필수항목입니다.")
@@ -23,4 +21,13 @@ public class UserFormDTO {
 
     @NotEmpty(message = "이름은 필수항목입니다.")
     private String name;
+
+    // 회원가입 폼을 가져오기 위한 생성자
+    public UserFormDTO(String username, String password, String password2, String name) {
+        this.username = username;
+        this.password = password;
+        this.password2 = password2;
+        this.name = name;
+    }
+
 }

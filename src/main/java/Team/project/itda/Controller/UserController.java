@@ -48,7 +48,7 @@ public class UserController {
         try {
             userService.save(userFormDTO);
 
-        } catch (RuntimeException e) {
+        } catch (IllegalStateException e) {
             e.printStackTrace();
             log.info("-----------" + e.getMessage() + "------------------");
 

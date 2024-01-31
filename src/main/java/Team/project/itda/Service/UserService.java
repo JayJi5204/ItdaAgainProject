@@ -9,20 +9,23 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Log4j2
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    // 회원가입
+    @Transactional
     public Long save(UserFormDTO userFormDto) {
 
         // 아이디 중복검사
         if (userRepository.existsByUsername(userFormDto.getUsername())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+            throw new IllegalStateException("이미 가입되어 있는 유저입니다");
         }
 
         return userRepository.save(UserEntity.builder()
@@ -41,7 +44,7 @@ public class UserService {
     // 로그인한 유저와 데이터 작성한 유저가 같은지 검증
     public boolean isChkUser(Long pathId, Long userId) {
 
-        if(pathId != userId) {
+        if(!pathId.equals(userId)) {
             throw  new AccessDeniedException("인증된 유저가 아닙니다.");
         }
 

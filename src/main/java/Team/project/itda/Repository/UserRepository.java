@@ -1,7 +1,6 @@
 package Team.project.itda.Repository;
 
 import Team.project.itda.Entity.UserEntity;
-import org.hibernate.sql.Update;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

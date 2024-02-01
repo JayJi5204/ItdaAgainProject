@@ -2,7 +2,6 @@ package Team.project.itda.DTO;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -21,7 +20,7 @@ public class UserUpdateFormDTO {
 
     // 회원수정 폼을 가져오기 위한 생성자
     @Builder
-    public UserUpdateFormDTO(String oldPassword, String newPassword, String newPassword2, String name) {
+    public UserUpdateFormDTO(String oldPassword, String newPassword, String newPassword2) {
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
         this.newPassword2 = newPassword2;

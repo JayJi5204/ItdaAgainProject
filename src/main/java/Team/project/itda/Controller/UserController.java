@@ -42,32 +42,32 @@ public class UserController {
     // 회원가입
     @PostMapping("/joinProcess")
     public String joinProcess(Model model, @Valid UserFormDTO userFormDTO, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) { // joinDTO 검증 실패 시
-
-            return "page/joinPage";
-        } else if (!userFormDTO.getPassword().equals(userFormDTO.getPassword2())) { // 비밀번호가 다를경우
-            bindingResult.rejectValue("password2", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
-
+        // 바인딩 결과에 오류가 있을 경우 회원가입 페이지로 반환합니다.
+        if (bindingResult.hasErrors()) {
             return "page/joinPage";
         }
 
+        // 비밀번호와 비밀번호 확인 필드가 일치하지 않을 경우, 유효성 검증 오류를 추가합니다.
+        if (!userFormDTO.getPassword().equals(userFormDTO.getPassword2())) {
+            bindingResult.rejectValue("password2", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
+            return "page/joinPage";
+        }
+
+        // 사용자 저장 과정에서 오류가 발생하면 예외를 처리합니다.
         try {
             userService.save(userFormDTO);
-
         } catch (IllegalStateException e) {
-            e.printStackTrace();
-            log.info("-----------" + e.getMessage() + "------------------");
-
+            log.error(e.getMessage(), e);
             model.addAttribute("errorMessage", e.getMessage());
 
             return "page/joinPage";
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
 
             return "page/joinPage";
         }
 
+        // 모든 과정이 성공적으로 마무리되면 로그인 페이지로 리다이렉트합니다.
         return "redirect:/login";
     }
 
@@ -85,25 +85,29 @@ public class UserController {
         String crrPassword = userEntity.getPassword();
         String chkPassword = userUpdateFormDTO.getOldPassword();
 
-        if(!userService.isChkPassword(crrPassword, chkPassword)) {
+        // 기존 비밀번호 검증 로직 실행
+        if (!bindingResult.hasErrors() &&
+                !userService.isChkPassword(crrPassword, chkPassword)) {
             bindingResult.rejectValue("oldPassword", "passwordInCorrect", "잘못된 비밀번호입니다.");
-
-            return "page/UserUpdatePage";
         }
-        if (bindingResult.hasErrors()) { // joinDTO 검증 실패 시
-            return "page/UserUpdatePage";
 
-        } else if (!userUpdateFormDTO.getNewPassword().equals(userUpdateFormDTO.getNewPassword2())) { // 비밀번호가 다를경우
+        // 새 비밀번호 동일 여부 검증 로직 실행
+        if (!bindingResult.hasErrors() &&
+                !userUpdateFormDTO.getNewPassword().equals(userUpdateFormDTO.getNewPassword2())) {
             bindingResult.rejectValue("newPassword2", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
+        }
 
+        // 검증 오류가 있을 경우, 사용자 수정 페이지로 리디렉션
+        if (bindingResult.hasErrors()) {
             return "page/UserUpdatePage";
         }
 
+        // 사용자 정보 업데이트 시도
         try {
             userService.update(userEntity.getId(), userUpdateFormDTO);
-
             return "redirect:/";
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
+            log.error(e.getMessage(), e);
             model.addAttribute("errorMessage", e.getMessage());
             return "page/UserUpdatePage";
         }

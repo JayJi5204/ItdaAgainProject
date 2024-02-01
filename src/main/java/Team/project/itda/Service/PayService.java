@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,7 +67,8 @@ public class PayService {
     }
 
     public List<PayEntity> getPayEntitiesByUser(UserEntity userEntity) {    //user의 id값에 따른 정보 가져오기
-        return payRepository.findByUserEntityOrderByPayIdDesc(userEntity);
+     List<PayEntity> payEntities= payRepository.findByUserEntityOrderByPayIdDesc(userEntity);
+         return payEntities.stream().limit(23).collect(Collectors.toList());
     }
 
     public int getTotalMoney(Long userId) { //user의 id값에 따른 현재 금액 가져오기

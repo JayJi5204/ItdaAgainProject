@@ -10,32 +10,33 @@
 <th:block layout:fragment="Content">
     <div class="pt-2 textCenter ContentForm">
         <div class="DivCenter mb-5">
+            <div class="alert alert-danger" th:if="${errorMessage}" th:text="${errorMessage}">예외 메시지 출력</div>
             <div class="m-3 ">
                 <div>
                     현재 금액 : <a class=" mt-1" th:text="${pay}">현재 금액</a> 원
                 </div>
             </div>
-            <form method="post" role="form" th:action="@{'/pay/deposit/'+ ${userForm.id}}" th:object="${paySaveForm}">
-                <div class="m-3 ">
+            <form method="post" role="form" th:action="@{'/pay/deposit/'+${userForm.id}}" th:object="${paySaveForm}">
+                <div class="m-3">
                     <label>
-                        입금액 <input class="form-control mt-1" th:field="*{depositMoney}" type="text">
+                        출금액 <input class="form-control mt-1" min="0" th:field="*{depositMoney}" type="number">
                     </label>
                 </div>
                 <div class="m-3">
                     <label>
-                        입금 내용 <textarea aria-label="With textarea" class="form-control PayContent mt-1"
+                        출금 내용 <textarea aria-label="With textarea" class="form-control PayContent mt-1"
                                         th:field="*{depositDetails}"></textarea>
                     </label>
                 </div>
                 <div class="m-3">
                     <button class="btn btn-primary" type="submit">저장</button>
-                    <button class="btn btn-danger"><a th:href="@{/pay/complete}" th:text="취소">취소</a>
+                    <button class="btn btn-danger" type="submit">
+                        <a th:href="@{/pay/complete}" th:text="취소">취소</a>
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </th:block>
-
 </body>
 </html>

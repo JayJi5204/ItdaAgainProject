@@ -10,6 +10,7 @@
 <th:block layout:fragment="Content">
     <div class="pt-2 textCenter ContentForm">
         <div class="DivCenter mb-5">
+            <div class="alert alert-danger" th:if="${errorMessage}" th:text="${errorMessage}">예외 메시지 출력</div>
             <div class="m-3 ">
                 <div>
                     현재 금액 : <a class=" mt-1" th:text="${pay}">현재 금액</a> 원
@@ -18,7 +19,7 @@
             <form method="post" role="form" th:action="@{'/pay/withdraw/'+${userForm.id}}" th:object="${paySaveForm}">
                 <div class="m-3">
                     <label>
-                        출금액 <input class="form-control mt-1" th:field="*{withdrawMoney}" type="text">
+                        출금액 <input class="form-control mt-1" min="0" th:field="*{withdrawMoney}" type="number">
                     </label>
                 </div>
                 <div class="m-3">

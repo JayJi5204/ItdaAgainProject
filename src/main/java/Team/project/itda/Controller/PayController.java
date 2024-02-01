@@ -13,13 +13,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.FieldError;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,10 +41,10 @@ public class PayController {
     }
 
     @GetMapping("/pay/deposit")    //입금 페이지
-    public String getPayDepositPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Long depositMoney, String depositDetails, Long withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Long totalMoney) {
+    public String getPayDepositPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Integer depositMoney, String depositDetails, Integer withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Integer totalMoney) {
         Long userId = userEntity.getId();
         UserEntity userIdEntity = userService.getUserById(userId);
-        Long nowMoney = payService.getTotalMoney(userId);
+        Integer nowMoney = payService.getTotalMoney(userId);
         model.addAttribute("pay", nowMoney);
         model.addAttribute("userForm", userIdEntity);
         model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, withdrawMoney, withdrawDetails, accountTime, totalMoney, userEntity));
@@ -51,6 +55,10 @@ public class PayController {
     @PostMapping("/pay/deposit/{id}") //입금 페이지
     public String postPayDepositPage(@PathVariable("id") Long id, @Valid PayDTO payDTO, Model model) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow();
+        Long userId = userEntity.getId();
+        UserEntity userIdEntity = userService.getUserById(userId);
+        Integer nowMoney = payService.getTotalMoney(userId);
+
         PayDTO payForm = new PayDTO(
                 payDTO.getPayId(),
                 payDTO.getDepositMoney(),
@@ -62,25 +70,38 @@ public class PayController {
                 userEntity
         );
         model.addAttribute("userForm", userEntity);
-        payService.savePay(payForm, id);
+
+        try {
+            payService.savePay(payForm, id);
+        } catch (RuntimeException e) {
+            model.addAttribute("pay", nowMoney);
+            model.addAttribute("userForm", userIdEntity);
+            model.addAttribute("paySaveForm", payDTO);
+            model.addAttribute("errorMessage", e.getMessage());
+            return "page/PayDepositPage";
+        }
+
         return "redirect:/pay/complete";
     }
 
-
     @GetMapping("/pay/withdraw")    //출금 페이지
-    public String getPayWithdrawPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Long depositMoney, String depositDetails, Long withdrawMoney, String withdrawDetails, LocalDateTime accountTime,Long totalMoney, PayEntity payEntity) {
+    public String getPayWithdrawPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Integer depositMoney, String depositDetails, Integer withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Integer totalMoney) {
         Long userId = userEntity.getId();
         UserEntity userIdEntity = userService.getUserById(userId);
-        Long nowMoney = payService.getTotalMoney(userId);
+        Integer nowMoney = payService.getTotalMoney(userId);
         model.addAttribute("pay", nowMoney);
         model.addAttribute("userForm", userIdEntity);
-        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, withdrawMoney, withdrawDetails, accountTime,totalMoney, userEntity));
+        model.addAttribute("paySaveForm", new PayDTO(payId, depositMoney, depositDetails, withdrawMoney, withdrawDetails, accountTime, totalMoney, userEntity));
         return "page/PayWithdrawPage";
     }
 
     @PostMapping("/pay/withdraw/{id}")   //출금 페이지
     public String postPayWithdrawPage(@PathVariable("id") Long id, @Valid PayDTO payDTO, Model model) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow();
+        Long userId = userEntity.getId();
+        UserEntity userIdEntity = userService.getUserById(userId);
+        Integer nowMoney = payService.getTotalMoney(userId);
+
         PayDTO payForm = new PayDTO(
                 payDTO.getPayId(),
                 payDTO.getDepositMoney(),
@@ -92,7 +113,17 @@ public class PayController {
                 userEntity
         );
         model.addAttribute("userForm", userEntity);
-        payService.savePay(payForm, id);
+
+        try {
+            payService.savePay(payForm, id);
+        } catch (RuntimeException e) {
+            model.addAttribute("pay", nowMoney);
+            model.addAttribute("userForm", userIdEntity);
+            model.addAttribute("paySaveForm", payDTO);
+            model.addAttribute("errorMessage", e.getMessage());
+            return "page/PayWithdrawPage";
+        }
+
         return "redirect:/pay/complete";
     }
 

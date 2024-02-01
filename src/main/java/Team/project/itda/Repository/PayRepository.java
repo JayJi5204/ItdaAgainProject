@@ -11,5 +11,5 @@ import java.util.List;
 public interface PayRepository extends JpaRepository<PayEntity, Long> {
     PayEntity findFirstByUserEntityOrderByPayIdDesc(UserEntity userEntity);
 
-    List<PayEntity> findByUserEntity(UserEntity userEntity);
+    List<PayEntity> findByUserEntityOrderByPayIdDesc(UserEntity userEntity);
 }

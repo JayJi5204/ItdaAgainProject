@@ -1,11 +1,16 @@
 package Team.project.itda.DTO;
 
+import Team.project.itda.Entity.UserEntity;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
+@Builder
 public class UserFormDTO {
 
     @Size(min = 6, max = 12, message = "ID의 길이는 6~12글자입니다.")
@@ -22,12 +27,12 @@ public class UserFormDTO {
     @NotEmpty(message = "이름은 필수항목입니다.")
     private String name;
 
-    // 회원가입 폼을 가져오기 위한 생성자
-    public UserFormDTO(String username, String password, String password2, String name) {
-        this.username = username;
-        this.password = password;
-        this.password2 = password2;
-        this.name = name;
+    public UserEntity toEntity(){
+        return UserEntity.builder()
+                .username(username)
+                .password(password)
+                .name(name)
+                .build();
     }
 
 }

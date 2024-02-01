@@ -1,5 +1,8 @@
 package Team.project.itda.Entity;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 public enum UserRole {
-    USER, ADMIN
+    ROLE_USER, ROLE_ADMIN
 }

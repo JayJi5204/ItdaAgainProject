@@ -1,5 +1,6 @@
 package Team.project.itda.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,6 +41,9 @@ public class UserEntity implements UserDetails {
 
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     private List<PayEntity> payEntities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "writer")
+    List<Board> board = new ArrayList<>();
 
     @Builder
     public UserEntity (String username, String password, String name){

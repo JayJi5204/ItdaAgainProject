@@ -2,23 +2,52 @@
 <html lang="ko"
       layout:decorate="~{layouts/Layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+>
 <head>
-    <title>계좌 페이지</title>
+    <meta charset="UTF-8">
+    <title>글작성 페이지</title>
+    <style>
+        .ContentForm {
+            width: 70%;
+            margin: auto;
+        }
+        .form-group {
+            text-align: left;
+        }
+        .form-control {
+            width: 100%;
+        }
+        .btn-container {
+            text-align: right;
+            margin-top: 19px;
+        }
+        .btn {
+            padding: 5px 12px;
+            font-size: 0.875rem;
+            margin: 0px 4px 0px 0px;
+        }
+    </style>
 </head>
 <body>
 <th:block layout:fragment="Content">
     <div class="pt-2 textCenter ContentForm">
-        <h1 class="mt-4">Board Register Page</h1>
+        <h1 class="mt-4">글작성</h1>
 
         <form th:action="@{/board/register}" th:method="post">
             <div class="form-group">
-                <label >카테고리</label>
-                <input type="text" class="form-control" name="category" placeholder="Enter Category">
+                <label>카테고리</label>
+                <select class="form-control custom-select" name="category">
+                    <option value="자유">자유</option>
+                    <option value="유머">유머</option>
+                    <option value="질문/답변">질문/답변</option>
+                </select>
             </div>
+
             <div class="form-group">
                 <label >제목</label>
-                <input type="text" class="form-control" name="title" placeholder="Enter Title">
+                <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요">
             </div>
             <div class="form-group">
                 <label >내용</label>
@@ -26,11 +55,59 @@
             </div>
             <div class="form-group">
                 <label >작성자</label>
-                <input type="text" class="form-control" name="writer" placeholder="Enter Writer">
+                <input type="text" class="form-control" name="writer" th:value="${#authentication.name}" readonly>
             </div>
-
-            <button type="submit" class="btn btn-primary">글쓰기</button>
+            <div class="btn-container">
+                <!-- 버튼 클릭 시 로그인 여부 확인 스크립트 추가 -->
+                <button type="button" class="btn btn-primary" onclick="checkLogin()">글쓰기</button>
+            </div>
         </form>
+        <script th:inline="javascript">
+            document.querySelector('form').addEventListener('submit', function(event) {
+                var title = document.querySelector('input[name="title"]').value;
+                var content = document.querySelector('textarea[name="content"]').value;
+
+                if (!title.trim()) {
+                    alert('제목을 입력하지 않으셨습니다.');
+                    event.preventDefault();
+                    return;
+                }
+
+                if (!content.trim()) {
+                    alert('내용을 입력하지 않으셨습니다.');
+                    event.preventDefault();
+                    return;
+                }
+            });
+            function checkLogin() {
+    // authentication 객체로 로그인 여부 확인
+    var isAuthenticated = [[${#authentication.authenticated}]];
+
+    // 로그인하지 않은 경우 로그인 페이지로 이동
+    if (!isAuthenticated) {
+        alert('로그인이 필요합니다.');
+        window.location.href = '/login';  // 로그인 페이지 URL로 변경
+    } else {
+        // 로그인된 경우 제목과 내용이 비어있는지 확인
+        var title = document.querySelector('input[name="title"]').value;
+        var content = document.querySelector('textarea[name="content"]').value;
+
+        if (!title.trim()) {
+            alert('제목을 입력하지 않으셨습니다.');
+            return;
+        }
+
+        if (!content.trim()) {
+            alert('내용을 입력하지 않으셨습니다.');
+            return;
+        }
+
+        // 모든 조건이 충족되면 폼 제출
+        document.querySelector('form').submit();
+    }
+}
+
+        </script>
 
     </div>
 </th:block>

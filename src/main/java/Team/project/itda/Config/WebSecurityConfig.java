@@ -41,9 +41,9 @@ public class WebSecurityConfig {
                 )
                 .logout((logout) -> logout  // 로그아웃 설정
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/")
-                                .deleteCookies("JSESSIONID", "remember-me")
-                                .invalidateHttpSession(true)
+                        .logoutSuccessUrl("/")
+                        .deleteCookies("JSESSIONID", "remember-me")
+                        .invalidateHttpSession(true)
                 )
                 .rememberMe((remember) -> remember
                         .rememberMeParameter("remember-me") // default: remember-me
@@ -58,7 +58,7 @@ public class WebSecurityConfig {
         http
                 .sessionManagement((auth) -> auth
                         .sessionFixation().changeSessionId() //세션 고정 보호 - 로그인 시 세션 새로 생성
-        );
+                );
         http
                 .exceptionHandling((exceptionHandling) -> exceptionHandling // 인증 거부 처리
                         .accessDeniedHandler(accessDeniedHandler()));

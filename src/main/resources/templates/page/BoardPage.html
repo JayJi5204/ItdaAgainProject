@@ -2,7 +2,9 @@
 <html lang="ko"
       layout:decorate="~{layouts/Layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -15,12 +17,13 @@
 </head>
 <body>
 <th:block layout:fragment="Content">
+    <div class="pt-2 container ContentForm ">
     <div style="display: flex; justify-content: center; align-items: center;">
         <h1 class="mt-4">게시판</h1>
     </div>
     <div style="text-align: right;">
         <span>
-            <a th:href="@{/board/register}">
+           <a th:href="@{/board/register}" onclick="checkLogin(event)">
                 <button type="button" class="btn btn-outline-primary">글작성</button>
             </a>
         </span>
@@ -101,7 +104,6 @@
                 keyword = ${boardPageRequestDTO.keyword})}">다음</a>
             </li>
         </ul>
-
         <script th:inline="javascript">
             var msg = [[${msg}]];
             console.log(msg);
@@ -118,8 +120,8 @@
             searchForm.empty().submit();
             });
         </script>
-    </div>
 
+    </div>
 </th:block>
 </body>
 </html>

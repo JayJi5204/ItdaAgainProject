@@ -26,8 +26,10 @@ public class Board extends BoardBaseEntity { // BaseBoardEntity를 상속 해아
     @Column(length = 1500, nullable = false)
     private String content; //내용
 
-    @Column(length = 50, nullable = false)
-    private String writer; //작성자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity writer;
+
 
     public void changeTitle(String title) {
         this.title = title;

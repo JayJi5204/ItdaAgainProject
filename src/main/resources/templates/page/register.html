@@ -2,7 +2,9 @@
 <html lang="ko"
       layout:decorate="~{layouts/Layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+>
 <head>
     <meta charset="UTF-8">
     <title>글작성 페이지</title>
@@ -53,12 +55,59 @@
             </div>
             <div class="form-group">
                 <label >작성자</label>
-                <input type="text" class="form-control" name="writer" placeholder="Enter Writer">
+                <input type="text" class="form-control" name="writer" th:value="${#authentication.name}" readonly>
             </div>
             <div class="btn-container">
-            <button type="submit" class="btn btn-primary">글쓰기</button>
+                <!-- 버튼 클릭 시 로그인 여부 확인 스크립트 추가 -->
+                <button type="button" class="btn btn-primary" onclick="checkLogin()">글쓰기</button>
             </div>
         </form>
+        <script th:inline="javascript">
+            document.querySelector('form').addEventListener('submit', function(event) {
+                var title = document.querySelector('input[name="title"]').value;
+                var content = document.querySelector('textarea[name="content"]').value;
+
+                if (!title.trim()) {
+                    alert('제목을 입력하지 않으셨습니다.');
+                    event.preventDefault();
+                    return;
+                }
+
+                if (!content.trim()) {
+                    alert('내용을 입력하지 않으셨습니다.');
+                    event.preventDefault();
+                    return;
+                }
+            });
+            function checkLogin() {
+    // authentication 객체로 로그인 여부 확인
+    var isAuthenticated = [[${#authentication.authenticated}]];
+
+    // 로그인하지 않은 경우 로그인 페이지로 이동
+    if (!isAuthenticated) {
+        alert('로그인이 필요합니다.');
+        window.location.href = '/login';  // 로그인 페이지 URL로 변경
+    } else {
+        // 로그인된 경우 제목과 내용이 비어있는지 확인
+        var title = document.querySelector('input[name="title"]').value;
+        var content = document.querySelector('textarea[name="content"]').value;
+
+        if (!title.trim()) {
+            alert('제목을 입력하지 않으셨습니다.');
+            return;
+        }
+
+        if (!content.trim()) {
+            alert('내용을 입력하지 않으셨습니다.');
+            return;
+        }
+
+        // 모든 조건이 충족되면 폼 제출
+        document.querySelector('form').submit();
+    }
+}
+
+        </script>
 
     </div>
 </th:block>

@@ -3,9 +3,12 @@ package Team.project.itda.Controller;
 
 import Team.project.itda.DTO.BoardDTO;
 import Team.project.itda.DTO.BoardPageRequestDTO;
+import Team.project.itda.Entity.UserEntity;
+import Team.project.itda.Repository.UserRepository;
 import Team.project.itda.Service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,17 +32,14 @@ public class BoardController {
 
     private final BoardService service;
 
+    private final UserRepository userRepository;
+
     @GetMapping("")
     public String board(BoardPageRequestDTO pageRequestDTO, Model model) {
 
         model.addAttribute("result", service.getList(pageRequestDTO));
 
         return "page/BoardPage"; //템플릿 경로
-    }
-
-    @GetMapping("/{i}")
-    public String boardView() {
-        return "page/BoardViewPage";
     }
 
     //화면을 보여주고
@@ -51,11 +52,13 @@ public class BoardController {
 
     //처리 후 목록 페이지로 이동
     @PostMapping("/register")
-    public String registerPost(BoardDTO dto, RedirectAttributes redirectAttributes) {
+    public String registerPost(BoardDTO dto, RedirectAttributes redirectAttributes, Principal principal) {
         log.info("dto...." + dto);
 
+        UserEntity user = userRepository.findByUsername(principal.getName()).orElseThrow(() ->
+                new UsernameNotFoundException("User not found"));
         //새로 추가된 엔티티의 번호
-        Long bno = service.register(dto);
+        Long bno = service.register(dto, user);
 
         redirectAttributes.addFlashAttribute("msg", bno); //addFlashAttribute: 한 번만 데이터를 전달하는 용도
 
@@ -83,18 +86,20 @@ public class BoardController {
     }
 
     @PostMapping("/remove")
-    public String remove(long bno, RedirectAttributes redirectAttributes) {
+    public String remove(long bno, RedirectAttributes redirectAttributes, Principal principal) {
         log.info("자 이건 삭제야" + bno);
 
-        service.remove(bno);
+        UserEntity user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        service.remove(bno, user);
         redirectAttributes.addFlashAttribute("msg", bno);
 
         return "redirect:/board";
     }
 
     @PostMapping("/modify")
-    public String modifyPost(BoardDTO dto, @ModelAttribute("requestDTO") BoardPageRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
-        service.modify(dto);
+    public String modifyPost(BoardDTO dto, @ModelAttribute("requestDTO") BoardPageRequestDTO requestDTO, RedirectAttributes redirectAttributes, Principal principal) {
+        UserEntity user = userRepository.findByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        service.modify(dto, user);
 
         redirectAttributes.addAttribute("page", requestDTO.getPage());
         redirectAttributes.addAttribute("type", requestDTO.getType());
@@ -103,4 +108,5 @@ public class BoardController {
 
         return "redirect:/board/read";
     }
+
 }

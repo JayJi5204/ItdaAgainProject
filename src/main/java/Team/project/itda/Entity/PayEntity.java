@@ -23,13 +23,13 @@ public class PayEntity {
     private Long payId;    //계좌 순서
 
     @Column(name = "depositMoney")
-    private Long depositMoney; //입금 금액
+    private Integer depositMoney; //입금 금액
 
     @Column(name = "depositDetails")
     private String depositDetails;   //입금 내용
 
     @Column(name = "withdrawMoney")
-    private Long withdrawMoney;  //출금 금액
+    private Integer withdrawMoney;  //출금 금액
 
     @Column(name = "withdrawDetails")
     private String withdrawDetails;   //출금 내용
@@ -39,7 +39,7 @@ public class PayEntity {
     private LocalDateTime accountTime;  // 입출금 시간
 
     @Column(name = "totalMoney")
-    private Long totalMoney;      //총 금액
+    private Integer totalMoney;      //총 금액
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

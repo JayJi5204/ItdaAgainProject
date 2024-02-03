@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,29 +33,48 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private String password;    // 비밀번호
 
+    @Column(nullable = false)
     private String name;    // 이름
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @OneToMany(mappedBy = "userEntity",cascade = CascadeType.ALL)
-    private List<PayEntity> payEntities=new ArrayList<>();
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
+    private List<PayEntity> payEntities = new ArrayList<>();
 
     @OneToMany(mappedBy = "writer")
     List<Board> board = new ArrayList<>();
 
     @Builder
-    public UserEntity(String username, String password, String name, UserRole role) {
+    public UserEntity (String username, String password, String name){
         this.username = username;
         this.password = password;
         this.name = name;
-        this.role = role;
     }
 
+    public void passwordEncode(BCryptPasswordEncoder bCryptPasswordEncoder){
+        this.password = bCryptPasswordEncoder.encode(password);
+    }
+
+
+    public void addUserAuthority() {
+        this.role = UserRole.ROLE_USER;
+    }
 
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public void updateUserPassword(String password){
+        this.password = password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> collect = new ArrayList<>();
+        collect.add(new SimpleGrantedAuthority(role.name()));
+        return collect;
     }
 
     @Override
@@ -62,10 +82,7 @@ public class UserEntity implements UserDetails {
         return password;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("USER"));
-    }
+
 
     // 계정 만료 여부 반환
     @Override

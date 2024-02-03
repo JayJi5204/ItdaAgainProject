@@ -1,0 +1,11 @@
+.DivCenterJoin {
+    position: absolute;
+        left: 50%;
+        height: auto;
+        width: 500px
+}
+
+.join-form {
+    width: 400px;
+    transform: translate(-50%, 0%);
+}

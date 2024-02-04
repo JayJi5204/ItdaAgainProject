@@ -16,5 +16,8 @@ public class CustomUserDetails extends User {
         this.userEntity = userEntity;
     }
 
+    public String getName() {
+        return userEntity.getName();
+    }
 
 }

@@ -121,7 +121,7 @@ public class BoardServiceImpl implements BoardService{
             conditionBuilder.or(qBoard.content.contains(keyword));
         }
         if (type.contains("w")) {
-            conditionBuilder.or(qBoard.writer.username.contains(keyword));
+            conditionBuilder.or(qBoard.writer.name.contains(keyword));
         }
 
 

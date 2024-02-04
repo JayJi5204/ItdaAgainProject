@@ -35,7 +35,7 @@ public interface BoardService {
                 .title(entity.getTitle())
                 .category(entity.getCategory())
                 .content(entity.getContent())
-                .writer(entity.getWriter().getUsername())
+                .writer(entity.getWriter().getName())
                 .createDt(entity.getCreateDt())
                 .updateDt(entity.getUpdateDt())
                 .build();

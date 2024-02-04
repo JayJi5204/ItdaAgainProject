@@ -3,3 +3,8 @@
    max-width: 105rem;
    position:relative;
   }
+  .HomeContent{
+   display: flex;
+   justify-content: center;
+  
+  }

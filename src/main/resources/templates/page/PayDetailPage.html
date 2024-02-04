@@ -34,15 +34,15 @@
                         <a th:text="출금" th:unless="${payForm.withdrawMoney}==0">출금</a>
                     </td>
                     <td class="col-2">
-                        <a th:if="${payForm.withdrawMoney}==0" th:text="${payForm.depositMoney}">입금액</a>
-                        <a th:text="${payForm.withdrawMoney}" th:unless="${payForm.withdrawMoney}==0">출금액</a>
+                        <a th:if="${payForm.withdrawMoney}==0" th:text="${#numbers.formatInteger(payForm.depositMoney, 3, 'COMMA')}">입금액</a>
+                        <a th:text="${#numbers.formatInteger(payForm.withdrawMoney, 3, 'COMMA')}" th:unless="${payForm.withdrawMoney}==0">출금액</a>
                     </td>
                     <td class="col-4">
                         <a th:if="${payForm.withdrawMoney}==0" th:text="${payForm.depositDetails}">입금 내용</a>
                         <a th:text="${payForm.withdrawDetails}" th:unless="${payForm.withdrawMoney}==0">출금 내용</a>
                     </td>
                     <td class="col-2">
-                        <a th:text="${payForm.totalMoney}">총 금액</a> 원
+                        <a th:text="${#numbers.formatInteger(payForm.totalMoney, 3, 'COMMA')}">총 금액</a> 원
                     </td>
                 </tr>
                 </tbody>

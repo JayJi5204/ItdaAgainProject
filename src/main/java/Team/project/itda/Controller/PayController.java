@@ -4,7 +4,6 @@ import Team.project.itda.Common.CurrentUser;
 import Team.project.itda.DTO.PayDTO;
 import Team.project.itda.Entity.PayEntity;
 import Team.project.itda.Entity.UserEntity;
-import Team.project.itda.Repository.PayRepository;
 import Team.project.itda.Repository.UserRepository;
 import Team.project.itda.Service.PayService;
 import Team.project.itda.Service.UserService;
@@ -14,24 +13,18 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.validation.FieldError;
 
-
-import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
 public class PayController {
 
     private final PayService payService;
-    private final PayRepository payRepository;
     private final UserRepository userRepository;
     private final UserService userService;
 
@@ -44,7 +37,7 @@ public class PayController {
     @GetMapping("/pay/deposit")    //입금 페이지
     public String getPayDepositPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Integer depositMoney, String depositDetails, Integer withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Integer totalMoney) {
         Long userId = userEntity.getId();
-        UserEntity userIdEntity = userService.getUserById(userId);
+        UserEntity userIdEntity = userRepository.findById(userId).orElseThrow();
         Integer nowMoney = payService.getTotalMoney(userId);
         model.addAttribute("pay", nowMoney);
         model.addAttribute("userForm", userIdEntity);
@@ -54,11 +47,19 @@ public class PayController {
 
 
     @PostMapping("/pay/deposit/{id}") //입금 페이지
-    public String postPayDepositPage(@PathVariable("id") Long id, @Valid PayDTO payDTO, Model model) {
+    public String postPayDepositPage(@PathVariable("id") Long id, @Valid PayDTO payDTO, BindingResult bindingResult, Model model) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow();
         Long userId = userEntity.getId();
-        UserEntity userIdEntity = userService.getUserById(userId);
+        UserEntity userIdEntity = userRepository.findById(userId).orElseThrow();
         Integer nowMoney = payService.getTotalMoney(userId);
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pay", nowMoney);
+            model.addAttribute("userForm", userIdEntity);
+            model.addAttribute("paySaveForm", payDTO);
+            model.addAttribute("errorMessage", "1회 입금 가능 금액은 200만원입니다.");
+            return "page/PayDepositPage";
+        }
 
         PayDTO payForm = new PayDTO(
                 payDTO.getPayId(),
@@ -88,7 +89,7 @@ public class PayController {
     @GetMapping("/pay/withdraw")    //출금 페이지
     public String getPayWithdrawPage(@CurrentUser UserEntity userEntity, Model model, Long payId, Integer depositMoney, String depositDetails, Integer withdrawMoney, String withdrawDetails, LocalDateTime accountTime, Integer totalMoney) {
         Long userId = userEntity.getId();
-        UserEntity userIdEntity = userService.getUserById(userId);
+        UserEntity userIdEntity = userRepository.findById(userId).orElseThrow();
         Integer nowMoney = payService.getTotalMoney(userId);
         model.addAttribute("pay", nowMoney);
         model.addAttribute("userForm", userIdEntity);
@@ -97,12 +98,18 @@ public class PayController {
     }
 
     @PostMapping("/pay/withdraw/{id}")   //출금 페이지
-    public String postPayWithdrawPage(@PathVariable("id") Long id, @Valid PayDTO payDTO, Model model) {
+    public String postPayWithdrawPage(@PathVariable("id") Long id, @Valid PayDTO payDTO, BindingResult bindingResult, Model model) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow();
         Long userId = userEntity.getId();
-        UserEntity userIdEntity = userService.getUserById(userId);
+        UserEntity userIdEntity = userRepository.findById(userId).orElseThrow();
         Integer nowMoney = payService.getTotalMoney(userId);
-
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pay", nowMoney);
+            model.addAttribute("userForm", userIdEntity);
+            model.addAttribute("paySaveForm", payDTO);
+            model.addAttribute("errorMessage", "1회 출금 가능 금액은 200만원입니다.");
+            return "page/PayDepositPage";
+        }
         PayDTO payForm = new PayDTO(
                 payDTO.getPayId(),
                 payDTO.getDepositMoney(),
@@ -138,7 +145,7 @@ public class PayController {
             List<PayEntity> payForm = payService.getPayEntitiesByUser(userEntity);
             model.addAttribute("payForm", payForm);
 
-        } catch (AccessDeniedException e) { // 검증 실패할 경우
+        } catch (AccessDeniedException e) {
             e.printStackTrace();
             model.addAttribute("errorMessage", e.getMessage());
             return "redirect:/";

@@ -19,13 +19,14 @@
             <form method="post" role="form" th:action="@{'/pay/deposit/'+${userForm.id}}" th:object="${paySaveForm}">
                 <div class="m-3">
                     <label>
-                        출금액 <input class="form-control mt-1" min="0" th:field="*{depositMoney}" type="number">
+                        입금액 <input class="form-control mt-1" id="depositMoney" min="0" placeholder="1회 한도 : 200만원"
+                                   th:field="*{depositMoney}" type="number">
                     </label>
                 </div>
                 <div class="m-3">
                     <label>
-                        출금 내용 <textarea aria-label="With textarea" class="form-control PayContent mt-1"
-                                        th:field="*{depositDetails}"></textarea>
+                        입금 내용 <textarea aria-label="With textarea" class="form-control PayContent mt-1"
+                                        placeholder="15자 이내로 작성해주세요" th:field="*{depositDetails}"></textarea>
                     </label>
                 </div>
                 <div class="m-3">
@@ -39,4 +40,14 @@
     </div>
 </th:block>
 </body>
+<script>
+    var depositMoney = document.getElementById('depositMoney');
+
+    depositMoney.addEventListener('input', function() {
+        if (this.value.toString().length > 7) {
+            this.value = this.value.toString().slice(0, 7);
+        }
+    });
+</script>
+
 </html>

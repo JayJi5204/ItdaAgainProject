@@ -34,16 +34,16 @@ public class PayService {
         if (totalMoney < 0) {
             throw new RuntimeException("출금액이 현재 금액보다 큽니다.");
         }
-        ;
+
 
         if (withdrawMoney == 0 && depositMoney < 1) {
             throw new RuntimeException("1이상의 양수를 입력해주세요.");
         }
-        ;
+
         if (depositMoney == 0 && withdrawMoney < 1) {
             throw new RuntimeException("1이상의 양수를 입력해주세요.");
         }
-        ;
+
 
         if (depositDetails != null && depositDetails.length() > 30) {
             throw new RuntimeException("15자 이내로 작성해주세요.");
@@ -51,7 +51,12 @@ public class PayService {
         if (withdrawDetails != null && withdrawDetails.length() > 30) {
             throw new RuntimeException("15자 이내로 작성해주세요.");
         }
-        ;
+        if(depositMoney > 0 && depositDetails.isEmpty()){
+            throw new RuntimeException("15자 이내로 작성해주세요.");
+        }
+        if(withdrawMoney > 0 && withdrawDetails.isEmpty()){
+            throw new RuntimeException("15자 이내로 작성해주세요.");
+        }
 
         PayEntity payEntity = new PayEntity(
                 payDTO.getPayId(),
@@ -67,8 +72,8 @@ public class PayService {
     }
 
     public List<PayEntity> getPayEntitiesByUser(UserEntity userEntity) {    //user의 id값에 따른 정보 가져오기
-     List<PayEntity> payEntities= payRepository.findByUserEntityOrderByPayIdDesc(userEntity);
-         return payEntities.stream().limit(23).collect(Collectors.toList());
+        List<PayEntity> payEntities = payRepository.findByUserEntityOrderByPayIdDesc(userEntity);
+        return payEntities.stream().limit(23).collect(Collectors.toList());
     }
 
     public int getTotalMoney(Long userId) { //user의 id값에 따른 현재 금액 가져오기

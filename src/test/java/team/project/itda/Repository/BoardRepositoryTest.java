@@ -23,21 +23,21 @@ public class BoardRepositoryTest {
     @Autowired
     private BoardRepository boardRepository;
 
-    @Test
-    public void insertDummies() {
-
-        IntStream.rangeClosed(1, 300).forEach(i -> {
-
-            Board board = Board.builder()
-                    .title("title..." + i)
-                    .category("category")
-                    .content("content..." + i)
-                    .writer("user" + (i % 10))
-                    .build();
-            System.out.println(boardRepository.save(board));
-        });
-
-    }
+//    @Test
+//    public void insertDummies() {
+//
+//        IntStream.rangeClosed(1, 300).forEach(i -> {
+//
+//            Board board = Board.builder()
+//                    .title("title..." + i)
+//                    .category("category")
+//                    .content("content..." + i)
+//                    .writer("user" + (i % 10))
+//                    .build();
+//            System.out.println(boardRepository.save(board));
+//        });
+//
+//    }
 
     @Test
     public void updateTest() {

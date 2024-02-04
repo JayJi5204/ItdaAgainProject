@@ -29,8 +29,8 @@ public class WebSecurityConfig {
 //                        .ignoringRequestMatchers("/api/users") // 특정 경로 csrf 비활성화, 회원가입 API
 //                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((auth) -> auth   // 인증, 인가 설정
-                        .requestMatchers("/", "/login", "/join", "/joinProcess", "/board/**", "/introduce", "/goal", "/denied", "/api/**").permitAll() // 모두 허용
-                        .requestMatchers("/update", "/user/**", "/account", "/pay/**").hasRole("USER")
+                        .requestMatchers("/", "/login", "/join", "/joinProcess", "/board", "/introduce", "/goal", "/denied", "/api/**").permitAll() // 모두 허용
+                        .requestMatchers("/update", "/user/**", "/account", "/pay/**", "/board/**").hasRole("USER")
                         .anyRequest().authenticated()
 
                 )

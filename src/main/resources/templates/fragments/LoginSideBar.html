@@ -11,7 +11,8 @@
             <img alt="로그인이미지" th:src="@{/Image/LoginSideImage.png}">
             <div class="mt-1">
                 <a style="color:black;">
-                    <span sec:authorize="isAuthenticated()" sec:authentication="name">로그인 이름</span>
+<!--                    <span sec:authorize="isAuthenticated()" sec:authentication="name">사용자 아이디</span>-->
+                    <span sec:authorize="isAuthenticated()" th:text="${#authentication.principal.name}">유저 닉네임</span>
                     <span sec:authorize="!isAuthenticated()" th:text="Guest">게스트</span>
                 </a>
             </div>

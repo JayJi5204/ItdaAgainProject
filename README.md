@@ -64,7 +64,7 @@ Itda의 홈페이지를 소개합니다
 - **아키텍처**   
 
 - **ERD**
-![KakaoTalk_20240204_151251808](https://github.com/JayJi5204/ItdaAgainProject/assets/126458483/8fcaf320-2a8b-40a3-9613-49d74236bae2)
+![KakaoTalk_20240204_151251808](https://github.com/JayJi5204/ItdaAgainProject/assets/126458483/8fcaf320-2a8b-40a3-9613-49d74236bae2)  
 
 
 ## 세부내용

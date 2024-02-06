@@ -31,7 +31,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((auth) -> auth   // 인증, 인가 설정
                         .requestMatchers("/", "/login", "/join", "/joinProcess", "/board", "/introduce", "/goal", "/denied", "/api/**").permitAll() // 모두 허용
                         .requestMatchers("/update", "/user/**", "/account", "/pay/**", "/board/**").hasRole("USER")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
 
                 )
                 .formLogin((auth) -> auth   // 폼 기반 로그인 설정

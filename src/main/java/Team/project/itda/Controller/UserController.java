@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping("/login")
     public String loginPage() {
 
-        return "page/loginPage";
+        return "page/LoginPage";
     }
 
 
@@ -44,13 +44,13 @@ public class UserController {
     public String joinProcess(Model model, @Valid UserFormDTO userFormDTO, BindingResult bindingResult) {
         // 바인딩 결과에 오류가 있을 경우 회원가입 페이지로 반환합니다.
         if (bindingResult.hasErrors()) {
-            return "page/joinPage";
+            return "page/JoinPage";
         }
 
         // 비밀번호와 비밀번호 확인 필드가 일치하지 않을 경우, 유효성 검증 오류를 추가합니다.
         if (!userFormDTO.getPassword().equals(userFormDTO.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
-            return "page/joinPage";
+            return "page/JoinPage";
         }
 
         // 사용자 저장 과정에서 오류가 발생하면 예외를 처리합니다.
@@ -60,11 +60,11 @@ public class UserController {
             log.error(e.getMessage(), e);
             model.addAttribute("errorMessage", e.getMessage());
 
-            return "page/joinPage";
+            return "page/JoinPage";
         } catch (Exception e) {
             log.error(e.getMessage(), e);
 
-            return "page/joinPage";
+            return "page/JoinPage";
         }
 
         // 모든 과정이 성공적으로 마무리되면 로그인 페이지로 리다이렉트합니다.

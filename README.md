@@ -61,7 +61,10 @@ Itda의 홈페이지를 소개합니다
 
 ## 기획
 
-- **아키텍처**   
+- **아키텍처**<br/>
+
+![아키텍쳐](https://github.com/JayJi5204/ItdaAgainProject/assets/126458483/c7a3b25f-1348-4ec5-99c7-f0a35958e3c1)
+
 
 - **ERD**<br/>
 
